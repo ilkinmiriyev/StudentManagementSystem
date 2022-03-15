@@ -1,5 +1,6 @@
 package edu.deegrework.StudentManagementSystem;
 
+import edu.deegrework.StudentManagementSystem.model.Team;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
