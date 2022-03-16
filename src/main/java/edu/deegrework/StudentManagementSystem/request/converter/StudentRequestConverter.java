@@ -1,29 +1,20 @@
-package edu.deegrework.StudentManagementSystem.request;
+package edu.deegrework.StudentManagementSystem.request.converter;
 
-import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
 import edu.deegrework.StudentManagementSystem.model.Student;
-import edu.deegrework.StudentManagementSystem.model.Team;
-import edu.deegrework.StudentManagementSystem.repository.TeamRepository;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+import edu.deegrework.StudentManagementSystem.request.StudentRequest;
+import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
+@Component
 public class StudentRequestConverter implements Function<StudentRequest, Student> {
-//
-//    @Autowired
-//    private TeamRepository teamRepository;
 
     @Override
     public Student apply(StudentRequest studentRequest) {
 
-        if (studentRequest==null){
+        if (studentRequest == null) {
             return null;
         }
-
-//        Team team = teamRepository.findById(studentRequest.getTeamId())
-//                .orElseThrow(()->new RecordNotFoundException("Team not found this id :: "+studentRequest.getTeamId()));
-
 
         return Student.builder()
                 .academicDegree(studentRequest.getAcademicDegree())
@@ -34,8 +25,7 @@ public class StudentRequestConverter implements Function<StudentRequest, Student
                 .firstName(studentRequest.getFirstname())
                 .phone(studentRequest.getPhone())
                 .lastName(studentRequest.getLastname())
-//                .team(team)
-//                .password(studentRequest.getPassword())
+                .password(studentRequest.getPassword())
                 .build();
     }
 }

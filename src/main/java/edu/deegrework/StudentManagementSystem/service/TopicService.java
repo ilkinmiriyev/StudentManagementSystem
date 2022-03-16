@@ -6,7 +6,7 @@ import edu.deegrework.StudentManagementSystem.response.StudentResponse;
 
 import java.util.List;
 
-public interface StudentService {
+public interface TopicService {
 
     Student getById(Long id);
 
@@ -14,11 +14,7 @@ public interface StudentService {
 
     StudentResponse save(StudentRequest studentRequest);
 
-    StudentResponse update(Long id, StudentRequest studentRequest);
-
-//    void deleteById(Long id);
-
-    boolean removeById(Long id);
+    void deleteById(Long id);
 
     boolean existsById(Long id);
 

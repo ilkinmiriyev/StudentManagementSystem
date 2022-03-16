@@ -1,8 +1,15 @@
 package edu.deegrework.StudentManagementSystem.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="faculty")
 public class Faculty {

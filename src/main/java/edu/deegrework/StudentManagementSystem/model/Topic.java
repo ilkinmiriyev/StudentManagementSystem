@@ -10,6 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name="topic")
 public class Topic {
     @Id

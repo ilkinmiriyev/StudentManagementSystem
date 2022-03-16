@@ -8,9 +8,9 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name="subject")
 @JsonIdentityInfo(
@@ -28,11 +28,9 @@ public class Subject {
     @ManyToMany(mappedBy = "subjects")
     private List<Team> teams;
 
-//    @JsonBackReference
     @ManyToMany(mappedBy = "subjects")
     private List<Specialization> specializations;
 
     @OneToMany(mappedBy = "subject")
     private List<Topic> topics;
-
 }

@@ -30,7 +30,4 @@ public class StudentRequest {
     private AcademicDegree academicDegree;
 
     private Course course;
-
-
-
 }

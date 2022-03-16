@@ -2,11 +2,13 @@ package edu.deegrework.StudentManagementSystem.model;
 
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -54,8 +56,8 @@ public class Student {
     @Column(name = "last_login_date")
     private Date lastLoginDate;
 
-    @Column(name = "creation_date")
-    @CreatedDate()
+    @Column(name = "creation_date", insertable = false, nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "deleted")
