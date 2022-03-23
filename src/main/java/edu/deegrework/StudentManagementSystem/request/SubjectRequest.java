@@ -10,9 +10,9 @@ import java.util.List;
 public class SubjectRequest {
     private Long id;
     private String name;
-    private List<Long> specialisationsId;
-    private List<Long> teamsId;
-    private List<Long> topicsId;
+//    private List<Long> teamsId;
+    private List<Long> specializationsId;
+//    private List<Long> topicsId;
 
 
 }

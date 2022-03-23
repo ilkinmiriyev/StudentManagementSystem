@@ -1,8 +1,6 @@
 package edu.deegrework.StudentManagementSystem.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +8,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 @Entity
 @Table(name="faculty")
 public class Faculty {
@@ -21,7 +21,7 @@ public class Faculty {
     @Column(name="name")
     private String name;
 
-    @OneToMany(mappedBy = "faculty")
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
     private List<Specialization> specializations;
 
     @ManyToOne

@@ -2,13 +2,12 @@ package edu.deegrework.StudentManagementSystem.model;
 
 
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Getter
@@ -41,8 +40,9 @@ public class Student {
     @Column(name = "birthdate")
     private Date birthdate;
 
-    @ManyToOne(/*fetch = FetchType.EAGER*/)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;
 
     @Column(name = "academicDegree")
@@ -56,8 +56,8 @@ public class Student {
     @Column(name = "last_login_date")
     private Date lastLoginDate;
 
-    @Column(name = "creation_date", insertable = false, nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creation_date", updatable = false, nullable = false)
+    @CreationTimestamp
     private Date creationDate;
 
     @Column(name = "deleted")

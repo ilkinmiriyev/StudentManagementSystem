@@ -11,16 +11,21 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(value = RecordNotFoundException.class)
-    public ResponseEntity<ExceptionResponse> resourceNotFoundExceptio(RuntimeException runtimeException,
+    @ExceptionHandler({RecordNotFoundException.class, RequiredFieldException.class})
+    public ResponseEntity<ExceptionResponse> resourceNotFoundException(RuntimeException runtimeException,
                                                                       WebRequest webRequest) {
         ExceptionResponse exceptionResponse = ExceptionResponse.builder()
                 .message(runtimeException.getMessage())
                 .exceptionClassName(runtimeException.getClass().getName())
                 .localDateTime(LocalDateTime.now())
+                .httpStatus(HttpStatus.NOT_FOUND)
                 .build();
         return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
+
+
+
+
 
     /*@ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<ExceptionResponse> runtimeException(RuntimeException runtimeException,

@@ -7,25 +7,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Builder
 @Setter
 @Getter
-public class StudentResponse {
+public class SpecializationResponse {
 
     private Long id;
 
-    private String firstname;
+    private String name;
 
-    private String lastname;
-
-    private Date birthdate;
-
-    private String email;
-
-    private String phone;
-
-    private Course course;
-
-    private AcademicDegree academicDegree;
+//    private List<TeamResponse> teamResponses;
 }

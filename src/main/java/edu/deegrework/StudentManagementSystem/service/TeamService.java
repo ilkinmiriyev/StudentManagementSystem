@@ -1,18 +1,19 @@
 package edu.deegrework.StudentManagementSystem.service;
 
-import edu.deegrework.StudentManagementSystem.model.Student;
-import edu.deegrework.StudentManagementSystem.request.StudentRequest;
-import edu.deegrework.StudentManagementSystem.response.StudentResponse;
+import edu.deegrework.StudentManagementSystem.request.TeamRequest;
+import edu.deegrework.StudentManagementSystem.response.TeamResponse;
 
 import java.util.List;
 
 public interface TeamService {
 
-    Student getById(Long id);
+    TeamResponse getById(Long id);
 
-    List<Student> getAll();
+    List<TeamResponse> getAll();
 
-    StudentResponse save(StudentRequest studentRequest);
+    TeamResponse save(TeamRequest teamRequest);
+
+    TeamResponse update(Long id, TeamRequest teamRequest);
 
     void deleteById(Long id);
 

@@ -11,21 +11,9 @@ import java.util.Date;
 @Builder
 @Setter
 @Getter
-public class StudentResponse {
+public class TopicResponse {
 
     private Long id;
 
-    private String firstname;
-
-    private String lastname;
-
-    private Date birthdate;
-
-    private String email;
-
-    private String phone;
-
-    private Course course;
-
-    private AcademicDegree academicDegree;
+    private String name;
 }

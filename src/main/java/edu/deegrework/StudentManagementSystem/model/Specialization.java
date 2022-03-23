@@ -1,6 +1,5 @@
 package edu.deegrework.StudentManagementSystem.model;
 
-import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,9 +12,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name="specialization")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+
 public class Specialization {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,15 +22,10 @@ public class Specialization {
     @Column(name = "name")
     private String name;
 
-//    @JsonManagedReference
-    @ManyToMany
-    @JoinTable(name = "specialization_subject",
-            joinColumns = @JoinColumn(name = "specialization_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "specializations", cascade = CascadeType.ALL)
     private List<Subject> subjects;
 
-//    @JsonManagedReference
-    @OneToMany(mappedBy = "specialization")
+    @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL)
     private List<Team> teams;
 
     @ManyToOne

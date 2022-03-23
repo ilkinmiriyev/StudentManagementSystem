@@ -1,16 +1,19 @@
 package edu.deegrework.StudentManagementSystem.service;
 
-import edu.deegrework.StudentManagementSystem.model.University;
+import edu.deegrework.StudentManagementSystem.request.UniversityRequest;
+import edu.deegrework.StudentManagementSystem.response.UniversityResponse;
 
 import java.util.List;
 
 public interface UniversityService {
 
-    University getById(Long id);
+    UniversityResponse getById(Long id);
 
-    List<University> getAll();
+    List<UniversityResponse> getAll();
 
-    University save(University university);
+    UniversityResponse save(UniversityRequest university);
+
+    UniversityResponse update(Long id, UniversityRequest universityRequest);
 
     void deleteById(Long id);
 

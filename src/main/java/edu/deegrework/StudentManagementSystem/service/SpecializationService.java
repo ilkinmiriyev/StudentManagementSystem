@@ -1,18 +1,19 @@
 package edu.deegrework.StudentManagementSystem.service;
 
-import edu.deegrework.StudentManagementSystem.model.Student;
-import edu.deegrework.StudentManagementSystem.request.StudentRequest;
-import edu.deegrework.StudentManagementSystem.response.StudentResponse;
+import edu.deegrework.StudentManagementSystem.request.SpecializationRequest;
+import edu.deegrework.StudentManagementSystem.response.SpecializationResponse;
 
 import java.util.List;
 
 public interface SpecializationService {
 
-    Student getById(Long id);
+    SpecializationResponse getById(Long id);
 
-    List<Student> getAll();
+    List<SpecializationResponse> getAll();
 
-    StudentResponse save(StudentRequest studentRequest);
+    SpecializationResponse save(SpecializationRequest specializationRequest);
+
+    SpecializationResponse update(Long id, SpecializationRequest specializationRequest);
 
     void deleteById(Long id);
 

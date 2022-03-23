@@ -1,9 +1,7 @@
 package edu.deegrework.StudentManagementSystem.controller;
 
-import edu.deegrework.StudentManagementSystem.model.Student;
 import edu.deegrework.StudentManagementSystem.request.StudentRequest;
 import edu.deegrework.StudentManagementSystem.response.StudentResponse;
-import edu.deegrework.StudentManagementSystem.response.StudentResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/api/student", produces = "application/json", consumes = "application/json")
+@RequestMapping(path = "/api/student", produces = "application/json")
 public class StudentController {
 
     private final StudentService studentService;
@@ -26,17 +23,13 @@ public class StudentController {
 
     @GetMapping("/{studentId}")
     public ResponseEntity<StudentResponse> getStudentById(@PathVariable Long studentId) {
-        Student student = studentService.getById(studentId);
-        StudentResponse studentResponse = new StudentResponseConverter().apply(student);
+        StudentResponse studentResponse = studentService.getById(studentId);
         return new ResponseEntity<>(studentResponse, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<StudentResponse>> getAll() {
-        List<StudentResponse> studentResponses = studentService
-                .getAll().stream()
-                .map(student -> new StudentResponseConverter().apply(student))
-                .collect(Collectors.toList());
+        List<StudentResponse> studentResponses = studentService.getAll();
         return new ResponseEntity<>(studentResponses, HttpStatus.OK);
     }
 
@@ -55,7 +48,7 @@ public class StudentController {
 
     @DeleteMapping("/{studentId}")
     public ResponseEntity<StudentResponse> deleteById(@PathVariable Long studentId) {
-        studentService.removeById(studentId);
-        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        studentService.deleteById(studentId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

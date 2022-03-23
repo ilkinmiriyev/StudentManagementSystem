@@ -1,22 +1,21 @@
 package edu.deegrework.StudentManagementSystem.service;
 
-import edu.deegrework.StudentManagementSystem.model.Faculty;
-import edu.deegrework.StudentManagementSystem.model.Student;
-import edu.deegrework.StudentManagementSystem.request.StudentRequest;
-import edu.deegrework.StudentManagementSystem.response.StudentResponse;
+import edu.deegrework.StudentManagementSystem.request.FacultyRequest;
+import edu.deegrework.StudentManagementSystem.response.FacultyResponse;
 
 import java.util.List;
 
 public interface FacultyService {
 
-    Faculty getById(Long id);
+    FacultyResponse getById(Long id);
 
-    List<Faculty> getAll();
+    List<FacultyResponse> getAll();
 
-    StudentResponse save(StudentRequest studentRequest);
+    FacultyResponse save(FacultyRequest facultyRequest);
+
+    FacultyResponse update(Long id, FacultyRequest facultyRequest);
 
     void deleteById(Long id);
 
     boolean existsById(Long id);
-
 }

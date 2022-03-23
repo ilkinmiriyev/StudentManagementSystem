@@ -8,48 +8,57 @@ import edu.deegrework.StudentManagementSystem.repository.TeamRepository;
 import edu.deegrework.StudentManagementSystem.request.StudentRequest;
 import edu.deegrework.StudentManagementSystem.request.converter.StudentRequestConverter;
 import edu.deegrework.StudentManagementSystem.response.StudentResponse;
-import edu.deegrework.StudentManagementSystem.response.StudentResponseConverter;
+import edu.deegrework.StudentManagementSystem.response.converter.StudentResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
     private final TeamRepository teamRepository;
+    private final StudentResponseConverter responseConverter;
+    private final StudentRequestConverter requestConverter;
 
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository, TeamRepository teamRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository,
+                              TeamRepository teamRepository,
+                              StudentResponseConverter responseConverter,
+                              StudentRequestConverter requestConverter) {
         this.studentRepository = studentRepository;
         this.teamRepository = teamRepository;
+        this.responseConverter = responseConverter;
+        this.requestConverter = requestConverter;
     }
 
-    public Student getById(Long id) {
-        return studentRepository.findById(id).
-                orElseThrow(() -> new RecordNotFoundException("Student not found this id :: " + id));
+    public StudentResponse getById(Long id) {
+        return studentRepository.findById(id)
+                .map(responseConverter::apply)
+                .orElseThrow(() -> new RecordNotFoundException("Student not found this id :: " + id));
     }
 
     @Override
-    public List<Student> getAll() {
-        List<Student> students = studentRepository.findAll();
-        // is null elave olunmali
-        if (!students.isEmpty()) {
-            return students;
-        }
-        throw new RecordNotFoundException("Students not found");
+    public List<StudentResponse> getAll() {
+        return studentRepository
+                .findAll()
+                .stream()
+                .map(responseConverter::apply)
+                .collect(Collectors.toList());
     }
 
     @Override
     public StudentResponse save(StudentRequest studentRequest) {
         Team team = teamRepository.findById(studentRequest.getTeamId())
                 .orElseThrow(() -> new RecordNotFoundException("Team not found this id :: " + studentRequest.getTeamId()));
-        Student student = new StudentRequestConverter().apply(studentRequest);
+        Student student = requestConverter.apply(studentRequest);
         student.setTeam(team);
-        Student save = studentRepository.save(student);
-        return new StudentResponseConverter().apply(save);
+        return responseConverter.apply(studentRepository.save(student));
     }
 
     @Override
@@ -63,10 +72,10 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean removeById(Long id) {
+    public void deleteById(Long id) {
         if (existsById(id)) {
-            return studentRepository.removeById(id);
-        }else{
+            studentRepository.deleteById(id);
+        } else {
             throw new RecordNotFoundException("Student not found this id :: " + id);
         }
     }

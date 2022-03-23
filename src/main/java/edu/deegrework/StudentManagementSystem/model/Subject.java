@@ -1,6 +1,5 @@
 package edu.deegrework.StudentManagementSystem.model;
 
-import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,9 +12,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name="subject")
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +22,18 @@ public class Subject {
     @Column(name="name")
     private String name;
 
-    @ManyToMany(mappedBy = "subjects")
-    private List<Team> teams;
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "team_subject",
+//            joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"))
+//    private List<Team> teams;
 
-    @ManyToMany(mappedBy = "subjects")
+    @ManyToMany
+    @JoinTable(name = "specialization_subject",
+            joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "specialization_id", referencedColumnName = "id"))
     private List<Specialization> specializations;
 
-    @OneToMany(mappedBy = "subject")
+    @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
     private List<Topic> topics;
 }
