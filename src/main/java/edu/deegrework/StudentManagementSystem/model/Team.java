@@ -26,10 +26,7 @@ public class Team {
     @JoinColumn(name = "specialization_id", referencedColumnName = "id")
     private Specialization specialization;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<Student> students;
-
-//    @ManyToMany(mappedBy = "teams", cascade = CascadeType.ALL)
-//    private List<Subject> subjects;
 
 }

@@ -40,7 +40,7 @@ public class Student {
     @Column(name = "birthdate")
     private Date birthdate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Team team;

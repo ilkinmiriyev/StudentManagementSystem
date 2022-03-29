@@ -44,7 +44,7 @@ public class TeamController {
 
     @PutMapping("/{teamId}")
     public ResponseEntity<TeamResponse> update(@PathVariable Long teamId,
-                                                     @RequestBody TeamRequest teamRequest) {
+                                               @RequestBody TeamRequest teamRequest) {
         TeamResponse teamResponse = teamService.update(teamId, teamRequest);
         return new ResponseEntity<>(teamResponse, HttpStatus.OK);
     }

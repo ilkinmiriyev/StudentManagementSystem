@@ -13,7 +13,7 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler({RecordNotFoundException.class, RequiredFieldException.class})
     public ResponseEntity<ExceptionResponse> resourceNotFoundException(RuntimeException runtimeException,
-                                                                      WebRequest webRequest) {
+                                                                       WebRequest webRequest) {
         ExceptionResponse exceptionResponse = ExceptionResponse.builder()
                 .message(runtimeException.getMessage())
                 .exceptionClassName(runtimeException.getClass().getName())

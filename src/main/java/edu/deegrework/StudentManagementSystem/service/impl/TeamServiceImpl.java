@@ -52,6 +52,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    @Transactional
     public TeamResponse save(TeamRequest teamRequest) {
         Specialization specialization = specializationRepository
                 .findById(teamRequest.getSpecializationId())
