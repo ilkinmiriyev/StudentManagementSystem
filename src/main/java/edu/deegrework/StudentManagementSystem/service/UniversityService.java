@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface UniversityService {
 
-    UniversityResponse getById(Long id);
+    UniversityResponse getUniversity(Long id);
 
-    List<UniversityResponse> getAll();
+    List<UniversityResponse> getUniversities();
 
     UniversityResponse save(UniversityRequest university);
 
     UniversityResponse update(Long id, UniversityRequest universityRequest);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     boolean existsById(Long id);
 

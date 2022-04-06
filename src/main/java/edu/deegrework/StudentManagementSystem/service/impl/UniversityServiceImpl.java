@@ -31,14 +31,14 @@ public class UniversityServiceImpl implements UniversityService {
         this.responseConverter = responseConverter;
     }
 
-    public UniversityResponse getById(Long id) {
+    public UniversityResponse getUniversity(Long id) {
         return universityRepository.findById(id)
                 .map(responseConverter::apply)
                 .orElseThrow(() -> new RecordNotFoundException("University not found this id :: " + id));
     }
 
     @Override
-    public List<UniversityResponse> getAll() {
+    public List<UniversityResponse> getUniversities() {
         return universityRepository
                 .findAll()
                 .stream()
@@ -63,7 +63,7 @@ public class UniversityServiceImpl implements UniversityService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         universityRepository.deleteById(id);
     }
 

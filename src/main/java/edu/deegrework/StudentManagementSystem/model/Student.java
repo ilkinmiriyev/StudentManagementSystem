@@ -4,10 +4,10 @@ package edu.deegrework.StudentManagementSystem.model;
 import lombok.*;
 import org.hibernate.annotations.*;
 
-import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Getter

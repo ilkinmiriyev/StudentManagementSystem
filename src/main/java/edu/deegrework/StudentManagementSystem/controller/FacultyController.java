@@ -6,13 +6,12 @@ import edu.deegrework.StudentManagementSystem.response.converter.FacultyResponse
 import edu.deegrework.StudentManagementSystem.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/faculty", produces = "application/json")
+@RequestMapping(path = "/v1/faculties", produces = "application/json")
 public class FacultyController {
 
     private final FacultyService facultyService;
@@ -25,34 +24,34 @@ public class FacultyController {
         this.responseConverter = responseConverter;
     }
 
-    @GetMapping("/{facultyId}")
-    public ResponseEntity<FacultyResponse> getFacultyById(@PathVariable Long facultyId) {
-        FacultyResponse facultyResponse = facultyService.getById(facultyId);
-        return new ResponseEntity<>(facultyResponse, HttpStatus.OK);
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public FacultyResponse getFaculty(@PathVariable Long id) {
+        return facultyService.getFaculty(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<FacultyResponse>> getAll() {
-        List<FacultyResponse> facultyResponses = facultyService.getAll();
-        return new ResponseEntity<>(facultyResponses, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<FacultyResponse> getFaculties() {
+        return facultyService.getFaculties();
     }
 
     @PostMapping
-    public ResponseEntity<FacultyResponse> save(@RequestBody FacultyRequest facultyRequest) {
-        FacultyResponse facultyResponse = facultyService.save(facultyRequest);
-        return new ResponseEntity<>(facultyResponse, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.CREATED)
+    public FacultyResponse save(@RequestBody FacultyRequest facultyRequest) {
+        return facultyService.save(facultyRequest);
     }
 
-    @PutMapping("/{facultyId}")
-    public ResponseEntity<FacultyResponse> update(@PathVariable Long facultyId,
-                                                  @RequestBody FacultyRequest facultyRequest) {
-        FacultyResponse facultyResponse = facultyService.update(facultyId, facultyRequest);
-        return new ResponseEntity<>(facultyResponse, HttpStatus.OK);
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public FacultyResponse update(@PathVariable Long id,
+                                  @RequestBody FacultyRequest facultyRequest) {
+        return facultyService.update(id, facultyRequest);
     }
 
-    @DeleteMapping("/{facultyId}")
-    public ResponseEntity<FacultyResponse> deleteById(@PathVariable Long facultyId) {
-        facultyService.deleteById(facultyId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        facultyService.delete(id);
     }
 }

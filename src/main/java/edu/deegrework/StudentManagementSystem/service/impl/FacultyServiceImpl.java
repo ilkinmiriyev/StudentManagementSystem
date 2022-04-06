@@ -27,7 +27,10 @@ public class FacultyServiceImpl implements FacultyService {
     private final FacultyResponseConverter responseConverter;
 
     @Autowired
-    public FacultyServiceImpl(FacultyRepository facultyRepository, UniversityRepository universityRepository, FacultyRequestConverter requestConverter, FacultyResponseConverter responseConverter) {
+    public FacultyServiceImpl(FacultyRepository facultyRepository,
+                              UniversityRepository universityRepository,
+                              FacultyRequestConverter requestConverter,
+                              FacultyResponseConverter responseConverter) {
         this.facultyRepository = facultyRepository;
         this.universityRepository = universityRepository;
         this.requestConverter = requestConverter;
@@ -35,14 +38,14 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public FacultyResponse getById(Long id) {
+    public FacultyResponse getFaculty(Long id) {
         return facultyRepository.findById(id)
                 .map(responseConverter::apply)
                 .orElseThrow(() -> new RecordNotFoundException("Faculty not found this id ::" + id));
     }
 
     @Override
-    public List<FacultyResponse> getAll() {
+    public List<FacultyResponse> getFaculties() {
         return facultyRepository.findAll()
                 .stream()
                 .map(responseConverter::apply)
@@ -51,16 +54,12 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public FacultyResponse save(FacultyRequest facultyRequest) {
-//        if (facultyRequest.getUniversityId()!=null) {
             University university = universityRepository.findById(facultyRequest.getUniversityId())
                     .orElseThrow(() -> new RecordNotFoundException("University not found this id :: " + facultyRequest.getUniversityId()));
             Faculty faculty = requestConverter.apply(facultyRequest);
             faculty.setUniversity(university);
             Faculty save = facultyRepository.save(faculty);
             return new FacultyResponseConverter().apply(save);
-//        }else{
-//            throw new RequiredFieldException("universityId must not be null !");
-//        }
     }
 
     @Override
@@ -74,7 +73,7 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         facultyRepository.deleteById(id);
     }
 

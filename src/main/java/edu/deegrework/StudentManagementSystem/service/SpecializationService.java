@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface SpecializationService {
 
-    SpecializationResponse getById(Long id);
+    SpecializationResponse getSpecialization(Long id);
 
-    List<SpecializationResponse> getAll();
+    List<SpecializationResponse> getSpecializations();
 
     SpecializationResponse save(SpecializationRequest specializationRequest);
 
     SpecializationResponse update(Long id, SpecializationRequest specializationRequest);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     boolean existsById(Long id);
 

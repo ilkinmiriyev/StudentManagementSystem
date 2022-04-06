@@ -37,14 +37,14 @@ public class TopicServiceImpl implements TopicService {
 
 
     @Override
-    public TopicResponse getById(Long id) {
+    public TopicResponse getTopic(Long id) {
         return topicRepository.findById(id)
                 .map(responseConverter::apply)
                 .orElseThrow(() -> new RecordNotFoundException("Topic not found this id :: " + id));
     }
 
     @Override
-    public List<TopicResponse> getAll() {
+    public List<TopicResponse> getTopics() {
         return topicRepository
                 .findAll()
                 .stream()
@@ -73,7 +73,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         topicRepository.deleteById(id);
     }
 

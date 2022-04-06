@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface StudentService {
 
-    StudentResponse getById(Long id);
+    StudentResponse getStudent(Long id);
 
-    List<StudentResponse> getAll();
+    List<StudentResponse> getStudents();
 
     StudentResponse save(StudentRequest studentRequest);
 
     StudentResponse update(Long id, StudentRequest studentRequest);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     boolean existsById(Long id);
 

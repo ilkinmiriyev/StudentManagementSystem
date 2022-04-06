@@ -5,13 +5,13 @@ import edu.deegrework.StudentManagementSystem.response.StudentResponse;
 import edu.deegrework.StudentManagementSystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/student", produces = "application/json")
+@RequestMapping(path = "/v1/students", produces = "application/json")
 public class StudentController {
 
     private final StudentService studentService;
@@ -21,34 +21,34 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @GetMapping("/{studentId}")
-    public ResponseEntity<StudentResponse> getStudentById(@PathVariable Long studentId) {
-        StudentResponse studentResponse = studentService.getById(studentId);
-        return new ResponseEntity<>(studentResponse, HttpStatus.OK);
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public StudentResponse getStudent(@PathVariable Long id) {
+        return studentService.getStudent(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentResponse>> getAll() {
-        List<StudentResponse> studentResponses = studentService.getAll();
-        return new ResponseEntity<>(studentResponses, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<StudentResponse> getStudents() {
+        return studentService.getStudents();
     }
 
     @PostMapping
-    public ResponseEntity<StudentResponse> save(@RequestBody StudentRequest studentRequest) {
-        StudentResponse studentResponse = studentService.save(studentRequest);
-        return new ResponseEntity<>(studentResponse, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.CREATED)
+    public StudentResponse create (@Valid @RequestBody StudentRequest studentRequest) {
+        return studentService.save(studentRequest);
     }
 
-    @PutMapping("/{studentId}")
-    public ResponseEntity<StudentResponse> update(@PathVariable Long studentId,
-                                                  @RequestBody StudentRequest studentRequest) {
-        StudentResponse studentResponse = studentService.update(studentId, studentRequest);
-        return new ResponseEntity<>(studentResponse, HttpStatus.OK);
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public StudentResponse update(@PathVariable Long id,
+                                  @RequestBody @Valid StudentRequest studentRequest) {
+        return studentService.update(id, studentRequest);
     }
 
-    @DeleteMapping("/{studentId}")
-    public ResponseEntity<StudentResponse> deleteById(@PathVariable Long studentId) {
-        studentService.deleteById(studentId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+       studentService.delete(id);
     }
 }

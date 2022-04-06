@@ -36,14 +36,14 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public TeamResponse getById(Long id) {
+    public TeamResponse getTeam(Long id) {
         return teamRepository.findById(id)
                 .map(responseConverter::apply)
                 .orElseThrow(() -> new RecordNotFoundException("Team not found this id ::"+id));
     }
 
     @Override
-    public List<TeamResponse> getAll() {
+    public List<TeamResponse> getTeams() {
         return teamRepository
                 .findAll()
                 .stream()
@@ -52,7 +52,6 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    @Transactional
     public TeamResponse save(TeamRequest teamRequest) {
         Specialization specialization = specializationRepository
                 .findById(teamRequest.getSpecializationId())
@@ -73,7 +72,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         teamRepository.deleteById(id);
     }
 

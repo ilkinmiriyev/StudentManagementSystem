@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface TopicService {
 
-    TopicResponse getById(Long id);
+    TopicResponse getTopic(Long id);
 
-    List<TopicResponse> getAll();
+    List<TopicResponse> getTopics();
 
     TopicResponse save(TopicRequest topicRequest);
 
     TopicResponse update(Long id, TopicRequest topicRequest);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     boolean existsById(Long id);
 

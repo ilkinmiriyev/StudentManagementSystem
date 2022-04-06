@@ -36,7 +36,7 @@ public class SpecializationServiceImpl implements SpecializationService {
     }
 
     @Override
-    public SpecializationResponse getById(Long id) {
+    public SpecializationResponse getSpecialization(Long id) {
         return specializationRepository
                 .findById(id)
                 .map(responseConverter::apply)
@@ -44,7 +44,7 @@ public class SpecializationServiceImpl implements SpecializationService {
     }
 
     @Override
-    public List<SpecializationResponse> getAll() {
+    public List<SpecializationResponse> getSpecializations() {
         return specializationRepository
                 .findAll()
                 .stream()
@@ -73,7 +73,7 @@ public class SpecializationServiceImpl implements SpecializationService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         specializationRepository.deleteById(id);
     }
 

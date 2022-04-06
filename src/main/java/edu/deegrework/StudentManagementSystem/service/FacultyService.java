@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface FacultyService {
 
-    FacultyResponse getById(Long id);
+    FacultyResponse getFaculty(Long id);
 
-    List<FacultyResponse> getAll();
+    List<FacultyResponse> getFaculties();
 
     FacultyResponse save(FacultyRequest facultyRequest);
 
     FacultyResponse update(Long id, FacultyRequest facultyRequest);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     boolean existsById(Long id);
 }

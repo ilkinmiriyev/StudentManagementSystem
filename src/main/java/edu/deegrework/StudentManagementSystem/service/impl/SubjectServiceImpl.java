@@ -38,14 +38,14 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public SubjectResponse getById(Long id) {
+    public SubjectResponse getSubject(Long id) {
         return subjectRepository.findById(id)
                 .map(responseConverter::apply)
                 .orElseThrow(() -> new RecordNotFoundException("Subject not found this id ::" + id));
     }
 
     @Override
-    public List<SubjectResponse> getAll() {
+    public List<SubjectResponse> getSubjects() {
         return subjectRepository
                 .findAll()
                 .stream()
@@ -75,7 +75,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         subjectRepository.deleteById(id);
     }
 

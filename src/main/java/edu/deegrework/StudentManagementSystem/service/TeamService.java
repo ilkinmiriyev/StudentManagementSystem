@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface TeamService {
 
-    TeamResponse getById(Long id);
+    TeamResponse getTeam(Long id);
 
-    List<TeamResponse> getAll();
+    List<TeamResponse> getTeams();
 
     TeamResponse save(TeamRequest teamRequest);
 
     TeamResponse update(Long id, TeamRequest teamRequest);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     boolean existsById(Long id);
 

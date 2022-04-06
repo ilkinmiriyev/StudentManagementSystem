@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface SubjectService {
 
-    SubjectResponse getById(Long id);
+    SubjectResponse getSubject(Long id);
 
-    List<SubjectResponse> getAll();
+    List<SubjectResponse> getSubjects();
 
     SubjectResponse save(SubjectRequest subjectRequest);
 
     SubjectResponse update(Long id, SubjectRequest subjectRequest);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     boolean existsById(Long id);
 

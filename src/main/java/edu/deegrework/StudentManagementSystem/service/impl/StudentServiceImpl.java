@@ -37,14 +37,14 @@ public class StudentServiceImpl implements StudentService {
         this.requestConverter = requestConverter;
     }
 
-    public StudentResponse getById(Long id) {
+    public StudentResponse getStudent(Long id) {
         return studentRepository.findById(id)
                 .map(responseConverter::apply)
                 .orElseThrow(() -> new RecordNotFoundException("Student not found this id :: " + id));
     }
 
     @Override
-    public List<StudentResponse> getAll() {
+    public List<StudentResponse> getStudents() {
         return studentRepository
                 .findAll()
                 .stream()
@@ -72,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         if (existsById(id)) {
             studentRepository.deleteById(id);
         } else {

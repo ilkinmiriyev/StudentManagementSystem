@@ -4,14 +4,12 @@ import edu.deegrework.StudentManagementSystem.request.UniversityRequest;
 import edu.deegrework.StudentManagementSystem.response.UniversityResponse;
 import edu.deegrework.StudentManagementSystem.service.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/university", produces = "application/json")
+@RequestMapping(path = "/v1/university", produces = "application/json")
 public class UniversityController {
 
     private final UniversityService universityService;
@@ -21,34 +19,29 @@ public class UniversityController {
         this.universityService = universityService;
     }
 
-    @GetMapping("/{universityId}")
-    public ResponseEntity<UniversityResponse> getUniversityById(@PathVariable Long universityId) {
-        UniversityResponse universityResponse = universityService.getById(universityId);
-        return new ResponseEntity<>(universityResponse, HttpStatus.OK);
+    @GetMapping("/{id}")
+    public UniversityResponse v(@PathVariable Long id) {
+        return universityService.getUniversity(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<UniversityResponse>> getAll() {
-        List<UniversityResponse> universityResponses = universityService.getAll();
-        return new ResponseEntity<>(universityResponses, HttpStatus.OK);
+    public List<UniversityResponse> getUniversities() {
+        return universityService.getUniversities();
     }
 
     @PostMapping
-    public ResponseEntity<UniversityResponse> save(@RequestBody UniversityRequest universityRequest) {
-        UniversityResponse universityResponse = universityService.save(universityRequest);
-        return new ResponseEntity<>(universityResponse, HttpStatus.OK);
+    public UniversityResponse save(@RequestBody UniversityRequest universityRequest) {
+        return universityService.save(universityRequest);
     }
 
-    @PutMapping("/{universityId}")
-    public ResponseEntity<UniversityResponse> update(@PathVariable Long universityId,
-                                                     @RequestBody UniversityRequest universityRequest) {
-        UniversityResponse universityResponse = universityService.update(universityId, universityRequest);
-        return new ResponseEntity<>(universityResponse, HttpStatus.OK);
+    @PutMapping("/{id}")
+    public UniversityResponse update(@PathVariable Long id,
+                                     @RequestBody UniversityRequest universityRequest) {
+        return universityService.update(id, universityRequest);
     }
 
-    @DeleteMapping("/{universityId}")
-    public ResponseEntity<UniversityResponse> deleteById(@PathVariable Long universityId) {
-        universityService.deleteById(universityId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        universityService.delete(id);
     }
 }

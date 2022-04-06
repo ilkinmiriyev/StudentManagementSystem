@@ -6,13 +6,12 @@ import edu.deegrework.StudentManagementSystem.response.converter.SubjectResponse
 import edu.deegrework.StudentManagementSystem.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/api/subject", produces = "application/json")
+@RequestMapping(path = "/v1/subject", produces = "application/json")
 public class SubjectController {
 
     private final SubjectService subjectService;
@@ -25,34 +24,34 @@ public class SubjectController {
         this.converter = converter;
     }
 
-    @GetMapping("/{subjectId}")
-    public ResponseEntity<SubjectResponse> getSubjectById(@PathVariable Long subjectId) {
-        SubjectResponse subjectResponse = subjectService.getById(subjectId);
-        return new ResponseEntity<>(subjectResponse, HttpStatus.OK);
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public SubjectResponse getSubject(@PathVariable Long id) {
+        return subjectService.getSubject(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<SubjectResponse>> getAll() {
-        List<SubjectResponse> subjectResponses = subjectService.getAll();
-        return new ResponseEntity<>(subjectResponses, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public List<SubjectResponse> getSubjects() {
+        return subjectService.getSubjects();
     }
 
     @PostMapping
-    public ResponseEntity<SubjectResponse> save(@RequestBody SubjectRequest subjectRequest) {
-        SubjectResponse subjectResponse = subjectService.save(subjectRequest);
-        return new ResponseEntity<>(subjectResponse, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.CREATED)
+    public SubjectResponse save(@RequestBody SubjectRequest subjectRequest) {
+        return subjectService.save(subjectRequest);
     }
 
-    @PutMapping("/{subjectId}")
-    public ResponseEntity<SubjectResponse> update(@PathVariable Long subjectId,
-                                                  @RequestBody SubjectRequest subjectRequest) {
-        SubjectResponse subjectResponse = subjectService.update(subjectId, subjectRequest);
-        return new ResponseEntity<>(subjectResponse, HttpStatus.OK);
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public SubjectResponse update(@PathVariable Long id,
+                                  @RequestBody SubjectRequest subjectRequest) {
+        return subjectService.update(id, subjectRequest);
     }
 
-    @DeleteMapping("/{subjectId}")
-    public ResponseEntity<SubjectResponse> deleteById(@PathVariable Long subjectId) {
-        subjectService.deleteById(subjectId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        subjectService.delete(id);
     }
 }
