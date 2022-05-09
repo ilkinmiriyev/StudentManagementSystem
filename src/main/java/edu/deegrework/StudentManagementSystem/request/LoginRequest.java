@@ -1,11 +1,11 @@
-package edu.deegrework.StudentManagementSystem.model;
+package edu.deegrework.StudentManagementSystem.request;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class LoginUser {
+public class LoginRequest {
     private String username;
     private String password;
 }

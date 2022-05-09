@@ -1,6 +1,6 @@
 package edu.deegrework.StudentManagementSystem.controller;
 
-import edu.deegrework.StudentManagementSystem.model.LoginUser;
+import edu.deegrework.StudentManagementSystem.request.LoginRequest;
 import edu.deegrework.StudentManagementSystem.model.Student;
 import edu.deegrework.StudentManagementSystem.model.Teacher;
 import edu.deegrework.StudentManagementSystem.repository.CustomUserDetailsRepository;
@@ -33,7 +33,7 @@ public class LoginController {
 
 
     @PostMapping(path = "/login")
-    public CustomUserDetailsResponse login(@RequestBody LoginUser user){     //LoginRequest
+    public CustomUserDetailsResponse login(@RequestBody LoginRequest user){     //LoginRequest
         log.info("ActionLog.Login.start");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
