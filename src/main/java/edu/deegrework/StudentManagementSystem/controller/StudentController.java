@@ -1,25 +1,23 @@
 package edu.deegrework.StudentManagementSystem.controller;
 
+import edu.deegrework.StudentManagementSystem.email.EmailSender;
 import edu.deegrework.StudentManagementSystem.request.StudentRequest;
 import edu.deegrework.StudentManagementSystem.response.StudentResponse;
 import edu.deegrework.StudentManagementSystem.service.StudentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping(path = "/v1/students", produces = "application/json")
 public class StudentController {
 
+    private final EmailSender emailSender;
     private final StudentService studentService;
-
-    @Autowired
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -35,7 +33,7 @@ public class StudentController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StudentResponse create (@Valid @RequestBody StudentRequest studentRequest) {
+    public StudentResponse create(@Valid @RequestBody StudentRequest studentRequest) {
         return studentService.save(studentRequest);
     }
 
@@ -49,6 +47,6 @@ public class StudentController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
-       studentService.delete(id);
+        studentService.delete(id);
     }
 }

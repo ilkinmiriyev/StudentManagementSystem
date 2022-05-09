@@ -12,7 +12,6 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "team")
-
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +21,16 @@ public class Team {
     @Column(name = "name")
     private String name;
 
+    @OneToOne
+    private Journal journal;
+
+    @OneToMany(mappedBy = "team")
+    List<LessonEvent> lessonEvents;
+
     @ManyToOne
     @JoinColumn(name = "specialization_id", referencedColumnName = "id")
     private Specialization specialization;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     private List<Student> students;
-
 }

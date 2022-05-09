@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/v1/topic", produces = "application/json")
+@RequestMapping(path = "/v1/topics", produces = "application/json")
 public class TopicController {
 
     private final TopicService topicService;

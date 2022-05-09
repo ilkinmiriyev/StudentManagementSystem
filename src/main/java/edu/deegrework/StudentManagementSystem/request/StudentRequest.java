@@ -1,7 +1,8 @@
 package edu.deegrework.StudentManagementSystem.request;
 
+import edu.deegrework.StudentManagementSystem.validation.PhoneValidation;
 import edu.deegrework.StudentManagementSystem.model.AcademicDegree;
-import edu.deegrework.StudentManagementSystem.model.Course;
+import edu.deegrework.StudentManagementSystem.model.Semester;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,6 +31,7 @@ public class StudentRequest {
     private String email;
 
     @NotEmpty
+    @PhoneValidation
     private String phone;
 
     @NotNull
@@ -40,5 +42,5 @@ public class StudentRequest {
 
     private AcademicDegree academicDegree;
 
-    private Course course;
+    private Semester semester;
 }

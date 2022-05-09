@@ -11,11 +11,15 @@ import edu.deegrework.StudentManagementSystem.request.converter.SubjectRequestCo
 import edu.deegrework.StudentManagementSystem.response.SubjectResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.SubjectResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.SubjectService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
+@Transactional
 @Service
 public class SubjectServiceImpl implements SubjectService {
 
@@ -25,23 +29,11 @@ public class SubjectServiceImpl implements SubjectService {
     private final SubjectResponseConverter responseConverter;
     private final SpecializationRepository specializationRepository;
 
-    public SubjectServiceImpl(SubjectRepository subjectRepository,
-                              TeamRepository teamRepository,
-                              SubjectRequestConverter requestConverter,
-                              SubjectResponseConverter responseConverter,
-                              SpecializationRepository specializationRepository) {
-        this.subjectRepository = subjectRepository;
-        this.teamRepository = teamRepository;
-        this.requestConverter = requestConverter;
-        this.responseConverter = responseConverter;
-        this.specializationRepository = specializationRepository;
-    }
-
     @Override
     public SubjectResponse getSubject(Long id) {
         return subjectRepository.findById(id)
-                .map(responseConverter::apply)
-                .orElseThrow(() -> new RecordNotFoundException("Subject not found this id ::" + id));
+                .map(responseConverter)
+                .orElseThrow(() -> new RecordNotFoundException("Subject not found with id:" + id));
     }
 
     @Override
@@ -49,7 +41,7 @@ public class SubjectServiceImpl implements SubjectService {
         return subjectRepository
                 .findAll()
                 .stream()
-                .map(responseConverter::apply)
+                .map(responseConverter)
                 .collect(Collectors.toList());
     }
 
@@ -70,7 +62,7 @@ public class SubjectServiceImpl implements SubjectService {
             subjectRequest.setId(id);
             return save(subjectRequest);
         } else {
-            throw new RecordNotFoundException("Subject not found this id :: " + id);
+            throw new RecordNotFoundException("Subject not found with id: " + id);
         }
     }
 

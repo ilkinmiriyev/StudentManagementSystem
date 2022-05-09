@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/v1/team", produces = "application/json")
+@RequestMapping(path = "/v1/teams", produces = "application/json")
 public class TeamController {
 
     private final TeamService teamService;

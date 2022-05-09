@@ -10,12 +10,15 @@ import edu.deegrework.StudentManagementSystem.request.converter.TopicRequestConv
 import edu.deegrework.StudentManagementSystem.response.TopicResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.TopicResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.TopicService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
+@Transactional
 @Service
 public class TopicServiceImpl implements TopicService {
 
@@ -24,23 +27,11 @@ public class TopicServiceImpl implements TopicService {
     private final TopicRequestConverter requestConverter;
     private final TopicResponseConverter responseConverter;
 
-    @Autowired
-    public TopicServiceImpl(TopicRepository topicRepository,
-                            SubjectRepository subjectRepository,
-                            TopicRequestConverter requestConverter,
-                            TopicResponseConverter responseConverter) {
-        this.topicRepository = topicRepository;
-        this.subjectRepository = subjectRepository;
-        this.requestConverter = requestConverter;
-        this.responseConverter = responseConverter;
-    }
-
-
     @Override
     public TopicResponse getTopic(Long id) {
         return topicRepository.findById(id)
-                .map(responseConverter::apply)
-                .orElseThrow(() -> new RecordNotFoundException("Topic not found this id :: " + id));
+                .map(responseConverter)
+                .orElseThrow(() -> new RecordNotFoundException("Topic not found with id: " + id));
     }
 
     @Override
@@ -48,7 +39,7 @@ public class TopicServiceImpl implements TopicService {
         return topicRepository
                 .findAll()
                 .stream()
-                .map(responseConverter::apply)
+                .map(responseConverter)
                 .collect(Collectors.toList());
     }
 
@@ -56,7 +47,7 @@ public class TopicServiceImpl implements TopicService {
     public TopicResponse save(TopicRequest topicRequest) {
         Subject subject = subjectRepository
                 .findById(topicRequest.getSubjectId())
-                .orElseThrow(() -> new RecordNotFoundException("Subject not found this id :: " + topicRequest.getSubjectId()));
+                .orElseThrow(() -> new RecordNotFoundException("Subject not found with id: " + topicRequest.getSubjectId()));
         Topic topic = requestConverter.apply(topicRequest);
         topic.setSubject(subject);
         return responseConverter.apply(topicRepository.save(topic));
@@ -68,7 +59,7 @@ public class TopicServiceImpl implements TopicService {
             topicRequest.setId(id);
             return save(topicRequest);
         } else {
-            throw new RecordNotFoundException("Topic not found this id :: " + id);
+            throw new RecordNotFoundException("Topic not found with id: " + id);
         }
     }
 

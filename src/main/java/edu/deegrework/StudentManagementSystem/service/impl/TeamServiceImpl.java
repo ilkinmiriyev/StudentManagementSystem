@@ -10,12 +10,14 @@ import edu.deegrework.StudentManagementSystem.request.converter.TeamRequestConve
 import edu.deegrework.StudentManagementSystem.response.TeamResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.TeamResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.TeamService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Transactional
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -25,21 +27,11 @@ public class TeamServiceImpl implements TeamService {
     private final TeamResponseConverter responseConverter;
     private final TeamRequestConverter requestConverter;
 
-    public TeamServiceImpl(TeamRepository teamRepository,
-                           SpecializationRepository specializationRepository,
-                           TeamResponseConverter responseConverter,
-                           TeamRequestConverter requestConverter) {
-        this.teamRepository = teamRepository;
-        this.specializationRepository = specializationRepository;
-        this.responseConverter = responseConverter;
-        this.requestConverter = requestConverter;
-    }
-
     @Override
     public TeamResponse getTeam(Long id) {
         return teamRepository.findById(id)
-                .map(responseConverter::apply)
-                .orElseThrow(() -> new RecordNotFoundException("Team not found this id ::"+id));
+                .map(responseConverter)
+                .orElseThrow(() -> new RecordNotFoundException("Team not found with id:"+id));
     }
 
     @Override
@@ -47,7 +39,7 @@ public class TeamServiceImpl implements TeamService {
         return teamRepository
                 .findAll()
                 .stream()
-                .map(responseConverter::apply)
+                .map(responseConverter)
                 .collect(Collectors.toList());
     }
 
@@ -55,7 +47,7 @@ public class TeamServiceImpl implements TeamService {
     public TeamResponse save(TeamRequest teamRequest) {
         Specialization specialization = specializationRepository
                 .findById(teamRequest.getSpecializationId())
-                .orElseThrow(()->new RecordNotFoundException("Specialization not found this id :: "+teamRequest.getSpecializationId()));
+                .orElseThrow(()->new RecordNotFoundException("Specialization not found with id: "+teamRequest.getSpecializationId()));
         Team team = requestConverter.apply(teamRequest);
         team.setSpecialization(specialization);
         return responseConverter.apply(teamRepository.save(team));
@@ -67,7 +59,7 @@ public class TeamServiceImpl implements TeamService {
             teamRequest.setId(id);
             return save(teamRequest);
         }else{
-            throw new RecordNotFoundException("Team not found this id :: "+id);
+            throw new RecordNotFoundException("Team not found with id: "+id);
         }
     }
 

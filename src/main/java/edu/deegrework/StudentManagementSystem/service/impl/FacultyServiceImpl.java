@@ -10,13 +10,14 @@ import edu.deegrework.StudentManagementSystem.request.converter.FacultyRequestCo
 import edu.deegrework.StudentManagementSystem.response.FacultyResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.FacultyResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.FacultyService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Transactional
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -26,36 +27,26 @@ public class FacultyServiceImpl implements FacultyService {
     private final FacultyRequestConverter requestConverter;
     private final FacultyResponseConverter responseConverter;
 
-    @Autowired
-    public FacultyServiceImpl(FacultyRepository facultyRepository,
-                              UniversityRepository universityRepository,
-                              FacultyRequestConverter requestConverter,
-                              FacultyResponseConverter responseConverter) {
-        this.facultyRepository = facultyRepository;
-        this.universityRepository = universityRepository;
-        this.requestConverter = requestConverter;
-        this.responseConverter = responseConverter;
-    }
 
     @Override
     public FacultyResponse getFaculty(Long id) {
         return facultyRepository.findById(id)
-                .map(responseConverter::apply)
-                .orElseThrow(() -> new RecordNotFoundException("Faculty not found this id ::" + id));
+                .map(responseConverter)
+                .orElseThrow(() -> new RecordNotFoundException("Faculty not found with id:" + id));
     }
 
     @Override
     public List<FacultyResponse> getFaculties() {
         return facultyRepository.findAll()
                 .stream()
-                .map(responseConverter::apply)
+                .map(responseConverter)
                 .collect(Collectors.toList());
     }
 
     @Override
     public FacultyResponse save(FacultyRequest facultyRequest) {
             University university = universityRepository.findById(facultyRequest.getUniversityId())
-                    .orElseThrow(() -> new RecordNotFoundException("University not found this id :: " + facultyRequest.getUniversityId()));
+                    .orElseThrow(() -> new RecordNotFoundException("University not found with id: " + facultyRequest.getUniversityId()));
             Faculty faculty = requestConverter.apply(facultyRequest);
             faculty.setUniversity(university);
             Faculty save = facultyRepository.save(faculty);
@@ -68,7 +59,7 @@ public class FacultyServiceImpl implements FacultyService {
             facultyRequest.setId(id);
             return this.save(facultyRequest);
         } else {
-            throw new RecordNotFoundException("Faculty not found this id :: " + id);
+            throw new RecordNotFoundException("Faculty not found with id: " + id);
         }
     }
 

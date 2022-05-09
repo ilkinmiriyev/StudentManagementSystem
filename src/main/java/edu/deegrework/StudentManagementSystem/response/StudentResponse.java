@@ -1,7 +1,8 @@
 package edu.deegrework.StudentManagementSystem.response;
 
 import edu.deegrework.StudentManagementSystem.model.AcademicDegree;
-import edu.deegrework.StudentManagementSystem.model.Course;
+import edu.deegrework.StudentManagementSystem.model.Semester;
+import edu.deegrework.StudentManagementSystem.security.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +26,9 @@ public class StudentResponse {
 
     private String phone;
 
-    private Course course;
+    private Semester semester;
+
+    private Role role;
 
     private AcademicDegree academicDegree;
 }

@@ -10,12 +10,14 @@ import edu.deegrework.StudentManagementSystem.request.converter.SpecializationRe
 import edu.deegrework.StudentManagementSystem.response.SpecializationResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.SpecializationResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.SpecializationService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Transactional
 @Service
 public class SpecializationServiceImpl implements SpecializationService {
@@ -25,22 +27,12 @@ public class SpecializationServiceImpl implements SpecializationService {
     private final SpecializationRequestConverter requestConverter;
     private final SpecializationResponseConverter responseConverter;
 
-    public SpecializationServiceImpl(SpecializationRepository specializationRepository,
-                                     FacultyRepository facultyRepository,
-                                     SpecializationRequestConverter requestConverter,
-                                     SpecializationResponseConverter responseConverter) {
-        this.specializationRepository = specializationRepository;
-        this.facultyRepository = facultyRepository;
-        this.requestConverter = requestConverter;
-        this.responseConverter = responseConverter;
-    }
-
     @Override
     public SpecializationResponse getSpecialization(Long id) {
         return specializationRepository
                 .findById(id)
-                .map(responseConverter::apply)
-                .orElseThrow(() -> new RecordNotFoundException("Specialization not found this id ::" + id));
+                .map(responseConverter)
+                .orElseThrow(() -> new RecordNotFoundException("Specialization not found with id:" + id));
     }
 
     @Override
@@ -48,14 +40,14 @@ public class SpecializationServiceImpl implements SpecializationService {
         return specializationRepository
                 .findAll()
                 .stream()
-                .map(responseConverter::apply)
+                .map(responseConverter)
                 .collect(Collectors.toList());
     }
 
     @Override
     public SpecializationResponse save(SpecializationRequest specializationRequest) {
         Faculty faculty = facultyRepository.findById(specializationRequest.getFacultyId())
-                .orElseThrow(()->new RecordNotFoundException("Faculty not found this id ::"+specializationRequest.getFacultyId()));
+                .orElseThrow(()->new RecordNotFoundException("Faculty not found with id:"+specializationRequest.getFacultyId()));
         Specialization specialization = requestConverter.apply(specializationRequest);
         specialization.setFaculty(faculty);
         Specialization save = specializationRepository.save(specialization);
@@ -68,7 +60,7 @@ public class SpecializationServiceImpl implements SpecializationService {
             specializationRequest.setId(id);
             return save(specializationRequest);
         } else {
-            throw new RecordNotFoundException("Specialization not found this id ::" + id);
+            throw new RecordNotFoundException("Specialization not found with id:" + id);
         }
     }
 

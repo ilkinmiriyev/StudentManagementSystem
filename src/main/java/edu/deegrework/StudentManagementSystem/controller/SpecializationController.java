@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/v1/specialization", produces = "application/json")
+@RequestMapping(path = "/v1/specializations", produces = "application/json")
 public class SpecializationController {
 
     private final SpecializationService specializationService;

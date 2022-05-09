@@ -8,33 +8,26 @@ import edu.deegrework.StudentManagementSystem.request.converter.UniversityReques
 import edu.deegrework.StudentManagementSystem.response.UniversityResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.UniversityResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.UniversityService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
+@Transactional
 @Service
-//@DynamicUpdate
 public class UniversityServiceImpl implements UniversityService {
 
     private final UniversityRepository universityRepository;
     private final UniversityRequestConverter requestConverter;
     private final UniversityResponseConverter responseConverter;
 
-    @Autowired
-    public UniversityServiceImpl(UniversityRepository universityRepository,
-                                 UniversityRequestConverter requestConverter,
-                                 UniversityResponseConverter responseConverter) {
-        this.universityRepository = universityRepository;
-        this.requestConverter = requestConverter;
-        this.responseConverter = responseConverter;
-    }
-
     public UniversityResponse getUniversity(Long id) {
         return universityRepository.findById(id)
-                .map(responseConverter::apply)
-                .orElseThrow(() -> new RecordNotFoundException("University not found this id :: " + id));
+                .map(responseConverter)
+                .orElseThrow(() -> new RecordNotFoundException("University not found with id: " + id));
     }
 
     @Override
@@ -42,7 +35,7 @@ public class UniversityServiceImpl implements UniversityService {
         return universityRepository
                 .findAll()
                 .stream()
-                .map(responseConverter::apply)
+                .map(responseConverter)
                 .collect(Collectors.toList());
     }
 
@@ -58,7 +51,7 @@ public class UniversityServiceImpl implements UniversityService {
             universityRequest.setId(id);
             return save(universityRequest);
         } else {
-            throw new RecordNotFoundException("University not found this id :: " + id);
+            throw new RecordNotFoundException("University not found with id: " + id);
         }
     }
 
