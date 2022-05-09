@@ -1,5 +1,6 @@
 package edu.deegrework.StudentManagementSystem.controller;
 
+import edu.deegrework.StudentManagementSystem.model.LoginUser;
 import edu.deegrework.StudentManagementSystem.model.Student;
 import edu.deegrework.StudentManagementSystem.model.Teacher;
 import edu.deegrework.StudentManagementSystem.repository.CustomUserDetailsRepository;
@@ -10,11 +11,12 @@ import edu.deegrework.StudentManagementSystem.response.converter.CustomUserDetai
 import edu.deegrework.StudentManagementSystem.security.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -23,13 +25,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     private final StudentRepository studentRepository;
+    private final AuthenticationManager authenticationManager;
     private final TeacherRepository teacherRepository;
     private final CustomUserDetailsRepository userRepository;
     private final CustomUserDetailsResponseConverter userDetailsResponseConverter;
 
+
+
+    @PostMapping(path = "/login")
+    public CustomUserDetailsResponse login(@RequestBody LoginUser user){     //LoginRequest
+        log.info("ActionLog.Login.start");
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return successLogin();
+    }
+
     @GetMapping(path = "/successLogin")
-    public CustomUserDetailsResponse login(@AuthenticationPrincipal UserDetails userDetails) {
-        log.info("ActionLog.login start");
+    public CustomUserDetailsResponse successLogin() {
+        log.info("ActionLog.successLogin start");
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email = userDetails.getUsername();
         CustomUserDetailsResponse userResponse = userDetailsResponseConverter
                 .apply(userRepository.findByEmail(email).get());
