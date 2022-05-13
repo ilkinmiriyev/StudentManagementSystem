@@ -33,7 +33,7 @@ public class LoginController {
 
 
     @PostMapping(path = "/login")
-    public CustomUserDetailsResponse login(@RequestBody LoginRequest user){     //LoginRequest
+    public CustomUserDetailsResponse login(@RequestBody LoginRequest user){
         log.info("ActionLog.Login.start");
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));

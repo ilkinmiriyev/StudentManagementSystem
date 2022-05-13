@@ -1,17 +1,15 @@
 package edu.deegrework.StudentManagementSystem.security.config;
 
-import edu.deegrework.StudentManagementSystem.security.CustomUserDetailsService;
-import edu.deegrework.StudentManagementSystem.security.Role;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @AllArgsConstructor
@@ -20,20 +18,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder encoder;
-    private final CustomUserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .httpBasic()
-                .and()
-                .authorizeRequests()
-//                .antMatchers("/v*/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/v*/teachers/**").hasAnyAuthority(Role.TEACHER.name(), Role.ADMIN.name())
-                .antMatchers(HttpMethod.GET, "/v*/students/**").hasAnyAuthority(Role.STUDENT.name(), Role.ADMIN.name())
-                .antMatchers("/v*/**").hasAuthority(Role.ADMIN.name())
-                .antMatchers("/logout").permitAll();
+                .httpBasic();
+//                .and()
+//                .authorizeRequests()
+////                .antMatchers("/v*/**").permitAll()
+//                .antMatchers(HttpMethod.GET, "/v*/teachers/**")
+//                    .hasAnyAuthority(Role.TEACHER.name(), Role.ADMIN.name())
+//                .antMatchers(HttpMethod.GET, "/v*/students/**")
+//                    .hasAnyAuthority(Role.STUDENT.name(), Role.TEACHER.name(), Role.ADMIN.name())
+//                .antMatchers("/v*/**")
+//                    .hasAuthority(Role.ADMIN.name())
+//                .antMatchers("/login", "/logout").permitAll()
+//                .anyRequest().authenticated();      // <-lt
 
     }
 
@@ -43,8 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    protected AuthenticationManager authenticationManager(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        return authenticationManagerBuilder
+    protected AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+        return auth
                 .authenticationProvider(daoAuthenticationProvider())
                 .build();
     }
