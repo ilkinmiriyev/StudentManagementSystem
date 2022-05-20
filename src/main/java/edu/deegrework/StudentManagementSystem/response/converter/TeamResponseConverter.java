@@ -1,19 +1,16 @@
 package edu.deegrework.StudentManagementSystem.response.converter;
 
-import edu.deegrework.StudentManagementSystem.model.Student;
-import edu.deegrework.StudentManagementSystem.model.Team;
-import edu.deegrework.StudentManagementSystem.response.StudentResponse;
+import edu.deegrework.StudentManagementSystem.model.TeamEntity;
 import edu.deegrework.StudentManagementSystem.response.TeamResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
-public class TeamResponseConverter implements Function<Team, TeamResponse> {
+public class TeamResponseConverter implements Function<TeamEntity, TeamResponse> {
 
     @Override
-    public TeamResponse apply(Team team) {
+    public TeamResponse apply(TeamEntity team) {
 
         return TeamResponse.builder()
                 .id(team.getId())

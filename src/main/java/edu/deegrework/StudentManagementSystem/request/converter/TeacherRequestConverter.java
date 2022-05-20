@@ -1,6 +1,6 @@
 package edu.deegrework.StudentManagementSystem.request.converter;
 
-import edu.deegrework.StudentManagementSystem.model.Teacher;
+import edu.deegrework.StudentManagementSystem.model.TeacherEntity;
 import edu.deegrework.StudentManagementSystem.request.TeacherRequest;
 import edu.deegrework.StudentManagementSystem.security.CustomUserDetails;
 import edu.deegrework.StudentManagementSystem.security.Role;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import java.util.function.Function;
 
 @Component
-public class TeacherRequestConverter implements Function<TeacherRequest, Teacher> {
+public class TeacherRequestConverter implements Function<TeacherRequest, TeacherEntity> {
 
     @Override
-    public Teacher apply(TeacherRequest request) {
+    public TeacherEntity apply(TeacherRequest request) {
 
         if (request == null) {
             return null;
@@ -23,7 +23,7 @@ public class TeacherRequestConverter implements Function<TeacherRequest, Teacher
         user.setPassword(request.getPassword());
         user.setRole(Role.TEACHER);
 
-        return Teacher.builder()
+        return TeacherEntity.builder()
                 .id(request.getId())
                 .userDetails(user)
                 .firstName(request.getFirstname())

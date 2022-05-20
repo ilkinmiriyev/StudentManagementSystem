@@ -1,8 +1,8 @@
 package edu.deegrework.StudentManagementSystem.controller;
 
 import edu.deegrework.StudentManagementSystem.request.LoginRequest;
-import edu.deegrework.StudentManagementSystem.model.Student;
-import edu.deegrework.StudentManagementSystem.model.Teacher;
+import edu.deegrework.StudentManagementSystem.model.StudentEntity;
+import edu.deegrework.StudentManagementSystem.model.TeacherEntity;
 import edu.deegrework.StudentManagementSystem.repository.CustomUserDetailsRepository;
 import edu.deegrework.StudentManagementSystem.repository.StudentRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeacherRepository;
@@ -19,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
+@CrossOrigin
 @Slf4j
 @RestController
 @RequestMapping(path = "/")
@@ -50,12 +51,12 @@ public class LoginController {
                 .apply(userRepository.findByEmail(email).get());
 
         if (userResponse.getRole() == Role.STUDENT) {
-            Student student = studentRepository.findByUserDetails(userDetails).get();
+            StudentEntity student = studentRepository.findByUserDetails(userDetails).get();
             userResponse.setUserId(student.getId());
             userResponse.setFullName(student.getFirstName()+" "+student.getLastName());
 
         } else if (userResponse.getRole() == Role.TEACHER) {
-            Teacher teacher = teacherRepository.findByUserDetails(userDetails).get();
+            TeacherEntity teacher = teacherRepository.findByUserDetails(userDetails).get();
             userResponse.setUserId(teacher.getId());
             userResponse.setFullName(teacher.getFirstName()+" "+teacher.getLastname());
         }

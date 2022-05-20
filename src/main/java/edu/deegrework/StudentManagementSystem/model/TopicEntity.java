@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @Table(name="topic")
-public class Topic {
+public class TopicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,6 +23,6 @@ public class Topic {
 
     @ManyToOne
     @JoinColumn(name="subject_id", referencedColumnName = "id")
-    private Subject subject;
+    private SubjectEntity subject;
 
 }

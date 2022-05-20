@@ -1,6 +1,5 @@
 package edu.deegrework.StudentManagementSystem.request;
 
-import edu.deegrework.StudentManagementSystem.model.Faculty;
 import lombok.Getter;
 import lombok.Setter;
 

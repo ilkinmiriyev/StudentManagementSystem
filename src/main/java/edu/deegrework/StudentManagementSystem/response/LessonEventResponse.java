@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Setter
 @Getter
 @Builder
 public class LessonEventResponse {
     private Long id;
-    private Date date;
-    private List<AttendanceItemResponse> attendanceItems;
+    private Long teamId;
+    private Long subjectId;
+    private Date lessonDate;
+//    private List<AttendanceItemResponse> attendanceItems;
 }

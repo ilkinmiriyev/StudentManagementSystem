@@ -17,7 +17,7 @@ import java.util.Objects;
 @ToString
 @Entity
 @Table(name="university")
-public class University {
+public class UniversityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -28,7 +28,7 @@ public class University {
 
     @OneToMany(mappedBy = "university", cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<Faculty> faculties;
+    private List<FacultyEntity> faculties;
 
     @Column(name = "creation_date", updatable = false, nullable = false)
     @CreationTimestamp
@@ -38,7 +38,7 @@ public class University {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        University that = (University) o;
+        UniversityEntity that = (UniversityEntity) o;
         return id != null && Objects.equals(id, that.id);
     }
 

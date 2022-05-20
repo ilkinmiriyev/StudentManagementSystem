@@ -1,8 +1,8 @@
 package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
-import edu.deegrework.StudentManagementSystem.model.Journal;
-import edu.deegrework.StudentManagementSystem.model.Team;
+import edu.deegrework.StudentManagementSystem.model.JournalEntity;
+import edu.deegrework.StudentManagementSystem.model.TeamEntity;
 import edu.deegrework.StudentManagementSystem.repository.JournalRepository;
 import edu.deegrework.StudentManagementSystem.repository.LessonEventRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeamRepository;
@@ -46,8 +46,8 @@ public class JournalServiceImpl implements JournalService {
 
     @Override
     public JournalResponse save(JournalRequest request) {
-        Journal journal = requestConverter.apply(request);
-        Team team = teamRepository.findById(request.getTeamId())
+        JournalEntity journal = requestConverter.apply(request);
+        TeamEntity team = teamRepository.findById(request.getTeamId())
                 .orElseThrow(() -> new RecordNotFoundException("Team not found with id: " + request.getTeamId()));
 //        List<LessonEvent> lessonEvents = request.getLessonEventsId()
 //                .stream()

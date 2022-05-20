@@ -1,7 +1,7 @@
 package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
-import edu.deegrework.StudentManagementSystem.model.University;
+import edu.deegrework.StudentManagementSystem.model.UniversityEntity;
 import edu.deegrework.StudentManagementSystem.repository.UniversityRepository;
 import edu.deegrework.StudentManagementSystem.request.UniversityRequest;
 import edu.deegrework.StudentManagementSystem.request.converter.UniversityRequestConverter;
@@ -41,7 +41,7 @@ public class UniversityServiceImpl implements UniversityService {
 
     @Override
     public UniversityResponse save(UniversityRequest universityRequest) {
-        University university = requestConverter.apply(universityRequest);
+        UniversityEntity university = requestConverter.apply(universityRequest);
         return responseConverter.apply(universityRepository.save(university));
     }
 

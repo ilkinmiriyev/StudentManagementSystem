@@ -2,9 +2,9 @@ package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.email.EmailSender;
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
-import edu.deegrework.StudentManagementSystem.model.Subject;
-import edu.deegrework.StudentManagementSystem.model.Teacher;
-import edu.deegrework.StudentManagementSystem.model.Team;
+import edu.deegrework.StudentManagementSystem.model.SubjectEntity;
+import edu.deegrework.StudentManagementSystem.model.TeacherEntity;
+import edu.deegrework.StudentManagementSystem.model.TeamEntity;
 import edu.deegrework.StudentManagementSystem.repository.CustomUserDetailsRepository;
 import edu.deegrework.StudentManagementSystem.repository.SubjectRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeacherRepository;
@@ -63,11 +63,11 @@ public class TeacherServiceImpl implements TeacherService {
             throw new IllegalStateException("email already taken");
         }
         request.setPassword(encoder.encode(request.getPassword()));
-        Teacher teacher = requestConverter.apply(request);
+        TeacherEntity teacher = requestConverter.apply(request);
 
-        Subject subject = subjectRepository.findById(request.getSubjectId())
+        SubjectEntity subject = subjectRepository.findById(request.getSubjectId())
                 .orElseThrow(() -> new RecordNotFoundException("Subject not found with id: " + request.getSubjectId()));
-        List<Team> teams = request.getTeamsId()
+        List<TeamEntity> teams = request.getTeamsId()
                 .stream()
                 .map(teamRepository::getById)
                 .collect(Collectors.toList());

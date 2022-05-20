@@ -1,8 +1,8 @@
 package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
-import edu.deegrework.StudentManagementSystem.model.Faculty;
-import edu.deegrework.StudentManagementSystem.model.University;
+import edu.deegrework.StudentManagementSystem.model.FacultyEntity;
+import edu.deegrework.StudentManagementSystem.model.UniversityEntity;
 import edu.deegrework.StudentManagementSystem.repository.FacultyRepository;
 import edu.deegrework.StudentManagementSystem.repository.UniversityRepository;
 import edu.deegrework.StudentManagementSystem.request.FacultyRequest;
@@ -45,11 +45,11 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public FacultyResponse save(FacultyRequest facultyRequest) {
-            University university = universityRepository.findById(facultyRequest.getUniversityId())
+            UniversityEntity university = universityRepository.findById(facultyRequest.getUniversityId())
                     .orElseThrow(() -> new RecordNotFoundException("University not found with id: " + facultyRequest.getUniversityId()));
-            Faculty faculty = requestConverter.apply(facultyRequest);
+            FacultyEntity faculty = requestConverter.apply(facultyRequest);
             faculty.setUniversity(university);
-            Faculty save = facultyRepository.save(faculty);
+            FacultyEntity save = facultyRepository.save(faculty);
             return new FacultyResponseConverter().apply(save);
     }
 

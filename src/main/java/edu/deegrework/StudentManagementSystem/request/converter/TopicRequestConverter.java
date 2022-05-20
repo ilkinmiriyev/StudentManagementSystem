@@ -1,16 +1,16 @@
 package edu.deegrework.StudentManagementSystem.request.converter;
 
-import edu.deegrework.StudentManagementSystem.model.Topic;
+import edu.deegrework.StudentManagementSystem.model.TopicEntity;
 import edu.deegrework.StudentManagementSystem.request.TopicRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 @Component
-public class TopicRequestConverter implements Function<TopicRequest, Topic> {
+public class TopicRequestConverter implements Function<TopicRequest, TopicEntity> {
     @Override
-    public Topic apply(TopicRequest topicRequest) {
-        return Topic.builder()
+    public TopicEntity apply(TopicRequest topicRequest) {
+        return TopicEntity.builder()
                 .id(topicRequest.getId())
                 .name(topicRequest.getName())
                 .build();

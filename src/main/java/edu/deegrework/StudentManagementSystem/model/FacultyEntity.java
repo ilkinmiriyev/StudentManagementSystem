@@ -1,8 +1,10 @@
 package edu.deegrework.StudentManagementSystem.model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -12,7 +14,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name="faculty")
-public class Faculty {
+public class FacultyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -22,10 +24,14 @@ public class Faculty {
     private String name;
 
     @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
-    private List<Specialization> specializations;
+    private List<SpecializationEntity> specializations;
+
+    @Column(name = "creation_date", updatable = false, nullable = false)
+    @CreationTimestamp
+    private Date creationDate;
 
     @ManyToOne
     @JoinColumn(name = "univsersity_id", referencedColumnName = "id")
-    private University university;
+    private UniversityEntity university;
 
 }

@@ -1,16 +1,16 @@
 package edu.deegrework.StudentManagementSystem.response.converter;
 
-import edu.deegrework.StudentManagementSystem.model.Student;
+import edu.deegrework.StudentManagementSystem.model.StudentEntity;
 import edu.deegrework.StudentManagementSystem.response.StudentResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 @Component
-public class StudentResponseConverter implements Function<Student, StudentResponse> {
+public class StudentResponseConverter implements Function<StudentEntity, StudentResponse> {
 
     @Override
-    public StudentResponse apply(Student student) {
+    public StudentResponse apply(StudentEntity student) {
 
         return StudentResponse.builder()
                 .id(student.getId())

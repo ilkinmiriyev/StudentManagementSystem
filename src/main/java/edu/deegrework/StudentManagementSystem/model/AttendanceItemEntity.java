@@ -1,8 +1,11 @@
 package edu.deegrework.StudentManagementSystem.model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Setter
@@ -11,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "attendance_item")
-public class AttendanceItem {
+public class AttendanceItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,14 +23,22 @@ public class AttendanceItem {
 
     @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "id")
-    private Student student;
+    private StudentEntity student;
 
     @ManyToOne
     @JoinColumn(name = "lessonEvent_id", referencedColumnName = "id")
-    private LessonEvent lessonEvent;
+    private LessonEventEntity lessonEvent;
 
     @Column(name = "status")
     private Boolean status;
+
+    @Column(name = "date", insertable = false, updatable = false)
+    @CreationTimestamp
+    private Date createdAt;
+
+    @Column(name = "date")
+    @UpdateTimestamp
+    private Date updatedAt;
 }
 
 

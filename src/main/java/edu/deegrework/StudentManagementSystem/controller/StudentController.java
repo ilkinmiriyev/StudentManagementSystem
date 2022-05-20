@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/v1/students", produces = "application/json")
 public class StudentController {

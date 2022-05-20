@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name="subject")
-public class Subject {
+public class SubjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -25,15 +25,15 @@ public class Subject {
     @JoinTable(name = "specialization_subject",
             joinColumns = @JoinColumn(name = "subject_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "specialization_id", referencedColumnName = "id"))
-    private List<Specialization> specializations;
+    private List<SpecializationEntity> specializations;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
-    private List<Topic> topics;
+    private List<TopicEntity> topics;
 
-    @Column(name="lesson_time")
-    private Integer lessonTime;
+    @OneToMany(mappedBy = "subject")
+    private List<TeacherEntity> teachers;
 
-    @OneToMany
-    private List<LessonEvent> lessonEvent;
+    @OneToMany(mappedBy = "subject")
+    private List<LessonEventEntity> lessonEvent;
 
 }

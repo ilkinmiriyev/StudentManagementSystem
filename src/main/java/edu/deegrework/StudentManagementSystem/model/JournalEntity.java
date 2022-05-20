@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "journal")
 @Entity
-public class Journal {
+public class JournalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -19,7 +19,7 @@ public class Journal {
 
     @OneToOne
     @JoinColumn(name = "team_id", referencedColumnName = "id")
-    private Team team;
+    private TeamEntity team;
 
 //    @OneToMany(mappedBy = "journal", cascade = CascadeType.ALL)
 //    private List<LessonEvent> lessonEvents;

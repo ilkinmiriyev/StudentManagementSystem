@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping(path = "/v1/teams", produces = "application/json")
 public class TeamController {
 
@@ -24,6 +25,12 @@ public class TeamController {
     @ResponseStatus(HttpStatus.OK)
     public TeamResponse getTeam(@PathVariable Long id) {
         return teamService.getTeam(id);
+    }
+
+    @GetMapping("/teacher-email")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TeamResponse> getTeamsByTeacherEmail(@RequestParam(name = "email") String email){
+        return teamService.getTeamsByTeacherEmail(email);
     }
 
     @GetMapping

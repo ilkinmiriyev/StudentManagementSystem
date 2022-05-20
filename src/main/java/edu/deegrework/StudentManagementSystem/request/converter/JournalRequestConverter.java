@@ -1,16 +1,16 @@
 package edu.deegrework.StudentManagementSystem.request.converter;
 
-import edu.deegrework.StudentManagementSystem.model.Journal;
+import edu.deegrework.StudentManagementSystem.model.JournalEntity;
 import edu.deegrework.StudentManagementSystem.request.JournalRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 @Component
-public class JournalRequestConverter implements Function<JournalRequest, Journal> {
+public class JournalRequestConverter implements Function<JournalRequest, JournalEntity> {
     @Override
-    public Journal apply(JournalRequest request) {
-        return Journal.builder()
+    public JournalEntity apply(JournalRequest request) {
+        return JournalEntity.builder()
                 .id(request.getId())
                 .build();
     }

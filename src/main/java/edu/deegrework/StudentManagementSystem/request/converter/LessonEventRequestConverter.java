@@ -1,19 +1,19 @@
 package edu.deegrework.StudentManagementSystem.request.converter;
 
-import edu.deegrework.StudentManagementSystem.model.LessonEvent;
+import edu.deegrework.StudentManagementSystem.model.LessonEventEntity;
 import edu.deegrework.StudentManagementSystem.request.LessonEventRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 @Component
-public class LessonEventRequestConverter implements Function<LessonEventRequest, LessonEvent> {
+public class LessonEventRequestConverter implements Function<LessonEventRequest, LessonEventEntity> {
 
     @Override
-    public LessonEvent apply(LessonEventRequest request) {
-        return LessonEvent.builder()
+    public LessonEventEntity apply(LessonEventRequest request) {
+        return LessonEventEntity.builder()
                 .id(request.getId())
-                .date(request.getDate())
+                .lessonDate(request.getLessonDate())
                 .build();
     }
 }

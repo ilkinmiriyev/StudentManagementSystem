@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @AllArgsConstructor
 @RequestMapping(path = "v1/journals", produces = "application/json")
 public class JournalController {

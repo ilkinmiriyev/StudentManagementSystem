@@ -24,7 +24,7 @@ import java.util.Objects;
 @Table(name = "student")
 @SQLDelete(sql = "update student SET deleted = true where id=?")
 @Where(clause = "deleted = false")
-public class Student {
+public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -50,7 +50,7 @@ public class Student {
     @JoinColumn(name = "team_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
-    private Team team;
+    private TeamEntity team;
 
     @Column(name = "academicDegree")
     @Enumerated(EnumType.STRING)
@@ -61,7 +61,7 @@ public class Student {
     private Semester semester;
 
     @OneToMany(mappedBy = "student")
-    private List<AttendanceItem> itemList;
+    private List<AttendanceItemEntity> itemList;
 
     @Column(name = "deleted")
     private Boolean deleted = Boolean.FALSE;
@@ -73,7 +73,7 @@ public class Student {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Student student = (Student) o;
+        StudentEntity student = (StudentEntity) o;
         return id != null && Objects.equals(id, student.id);
     }
 

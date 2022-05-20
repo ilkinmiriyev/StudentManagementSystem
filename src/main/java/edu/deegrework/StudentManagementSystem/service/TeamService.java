@@ -9,6 +9,8 @@ public interface TeamService {
 
     TeamResponse getTeam(Long id);
 
+    List<TeamResponse> getTeamsByTeacherEmail(String teacherEmail);
+
     List<TeamResponse> getTeams();
 
     TeamResponse save(TeamRequest teamRequest);

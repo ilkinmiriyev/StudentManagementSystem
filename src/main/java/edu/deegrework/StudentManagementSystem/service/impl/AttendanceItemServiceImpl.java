@@ -1,9 +1,7 @@
 package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
-import edu.deegrework.StudentManagementSystem.model.AttendanceItem;
-import edu.deegrework.StudentManagementSystem.model.LessonEvent;
-import edu.deegrework.StudentManagementSystem.model.Student;
+import edu.deegrework.StudentManagementSystem.model.AttendanceItemEntity;
 import edu.deegrework.StudentManagementSystem.repository.AttendanceItemRepository;
 import edu.deegrework.StudentManagementSystem.repository.LessonEventRepository;
 import edu.deegrework.StudentManagementSystem.repository.StudentRepository;
@@ -47,13 +45,13 @@ public class AttendanceItemServiceImpl implements AttendanceItemService {
 
     @Override
     public AttendanceItemResponse save(AttendanceItemRequest request) {
-        AttendanceItem item = requestConverter.apply(request);
-        Student student = studentRepository.findById(request.getStudentId())
-                .orElseThrow(() -> new RecordNotFoundException("Student not found with id: " + request.getStudentId()));
-        LessonEvent lessonEvent = lessonEventRepository.findById(request.getLessonEvent())
-                .orElseThrow(() -> new RecordNotFoundException("LessonEvent not found with id: " + request.getLessonEvent()));
-        item.setLessonEvent(lessonEvent);
-        item.setStudent(student);
+        AttendanceItemEntity item = requestConverter.apply(request);
+//        StudentEntity student = studentRepository.findById(request.getStudentId())
+//                .orElseThrow(() -> new RecordNotFoundException("Student not found with id: " + request.getStudentId()));
+//        LessonEventEntity lessonEvent = lessonEventRepository.findById(request.getLessonEvent())
+//                .orElseThrow(() -> new RecordNotFoundException("LessonEvent not found with id: " + request.getLessonEvent()));
+//        item.setLessonEvent(lessonEvent);
+//        item.setStudent(student);
         return responseConverter.apply(attendanceItemRepository.save(item));
     }
 

@@ -1,20 +1,16 @@
 package edu.deegrework.StudentManagementSystem.response.converter;
 
-import edu.deegrework.StudentManagementSystem.model.Specialization;
-import edu.deegrework.StudentManagementSystem.model.Student;
-import edu.deegrework.StudentManagementSystem.response.FacultyResponse;
+import edu.deegrework.StudentManagementSystem.model.SpecializationEntity;
 import edu.deegrework.StudentManagementSystem.response.SpecializationResponse;
-import edu.deegrework.StudentManagementSystem.response.StudentResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Component
-public class SpecializationResponseConverter implements Function<Specialization, SpecializationResponse> {
+public class SpecializationResponseConverter implements Function<SpecializationEntity, SpecializationResponse> {
 
     @Override
-    public SpecializationResponse apply(Specialization specialization) {
+    public SpecializationResponse apply(SpecializationEntity specialization) {
 
         return SpecializationResponse.builder()
                 .id(specialization.getId())

@@ -8,6 +8,6 @@ import lombok.Setter;
 public class AttendanceItemRequest {
     private Long id;
     private Long studentId;
-    private Long lessonEvent;
+    private Long lessonEventId;
     private Boolean status;
 }

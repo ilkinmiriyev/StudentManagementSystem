@@ -1,8 +1,8 @@
 package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
-import edu.deegrework.StudentManagementSystem.model.Subject;
-import edu.deegrework.StudentManagementSystem.model.Topic;
+import edu.deegrework.StudentManagementSystem.model.SubjectEntity;
+import edu.deegrework.StudentManagementSystem.model.TopicEntity;
 import edu.deegrework.StudentManagementSystem.repository.SubjectRepository;
 import edu.deegrework.StudentManagementSystem.repository.TopicRepository;
 import edu.deegrework.StudentManagementSystem.request.TopicRequest;
@@ -45,10 +45,10 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public TopicResponse save(TopicRequest topicRequest) {
-        Subject subject = subjectRepository
+        SubjectEntity subject = subjectRepository
                 .findById(topicRequest.getSubjectId())
                 .orElseThrow(() -> new RecordNotFoundException("Subject not found with id: " + topicRequest.getSubjectId()));
-        Topic topic = requestConverter.apply(topicRequest);
+        TopicEntity topic = requestConverter.apply(topicRequest);
         topic.setSubject(subject);
         return responseConverter.apply(topicRepository.save(topic));
     }

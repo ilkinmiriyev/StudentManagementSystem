@@ -1,8 +1,8 @@
 package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
-import edu.deegrework.StudentManagementSystem.model.Faculty;
-import edu.deegrework.StudentManagementSystem.model.Specialization;
+import edu.deegrework.StudentManagementSystem.model.FacultyEntity;
+import edu.deegrework.StudentManagementSystem.model.SpecializationEntity;
 import edu.deegrework.StudentManagementSystem.repository.FacultyRepository;
 import edu.deegrework.StudentManagementSystem.repository.SpecializationRepository;
 import edu.deegrework.StudentManagementSystem.request.SpecializationRequest;
@@ -46,11 +46,11 @@ public class SpecializationServiceImpl implements SpecializationService {
 
     @Override
     public SpecializationResponse save(SpecializationRequest specializationRequest) {
-        Faculty faculty = facultyRepository.findById(specializationRequest.getFacultyId())
+        FacultyEntity faculty = facultyRepository.findById(specializationRequest.getFacultyId())
                 .orElseThrow(()->new RecordNotFoundException("Faculty not found with id:"+specializationRequest.getFacultyId()));
-        Specialization specialization = requestConverter.apply(specializationRequest);
+        SpecializationEntity specialization = requestConverter.apply(specializationRequest);
         specialization.setFaculty(faculty);
-        Specialization save = specializationRepository.save(specialization);
+        SpecializationEntity save = specializationRepository.save(specialization);
         return responseConverter.apply(save);
     }
 

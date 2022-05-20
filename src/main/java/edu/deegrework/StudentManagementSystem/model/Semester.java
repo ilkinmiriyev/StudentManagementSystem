@@ -7,7 +7,8 @@ public enum Semester {
     FOURTH(Course.SECOND),
     FIFTH(Course.THIRD),
     SIXTH(Course.THIRD),
-    SEVENTH(Course.FOURTH);
+    SEVENTH(Course.FOURTH),
+    EIGHTH(Course.FOURTH);
 
     private final Course course;
 

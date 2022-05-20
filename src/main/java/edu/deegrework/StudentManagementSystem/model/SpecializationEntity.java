@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name="specialization")
 
-public class Specialization {
+public class SpecializationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,12 +23,12 @@ public class Specialization {
     private String name;
 
     @ManyToMany(mappedBy = "specializations", cascade = CascadeType.ALL)
-    private List<Subject> subjects;
+    private List<SubjectEntity> subjects;
 
     @OneToMany(mappedBy = "specialization", cascade = CascadeType.ALL)
-    private List<Team> teams;
+    private List<TeamEntity> teams;
 
     @ManyToOne
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
-    private Faculty faculty;
+    private FacultyEntity faculty;
 }

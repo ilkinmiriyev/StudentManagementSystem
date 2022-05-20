@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "team")
-public class Team {
+public class TeamEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -22,15 +22,18 @@ public class Team {
     private String name;
 
     @OneToOne
-    private Journal journal;
+    private JournalEntity journal;
 
     @OneToMany(mappedBy = "team")
-    List<LessonEvent> lessonEvents;
+    List<LessonEventEntity> lessonEvents;
 
     @ManyToOne
     @JoinColumn(name = "specialization_id", referencedColumnName = "id")
-    private Specialization specialization;
+    private SpecializationEntity specialization;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    private List<Student> students;
+    private List<StudentEntity> students;
+
+    @ManyToMany(mappedBy = "teams")
+    private List<TeacherEntity> teachers;
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "teacher")
 @Entity
-public class Teacher {      // className: TeacherEntity
+public class TeacherEntity {      // className: TeacherEntity
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -29,17 +29,17 @@ public class Teacher {      // className: TeacherEntity
     @Column(name = "lastname")
     private String lastname;
 
-    @OneToMany(mappedBy = "teacher")
-    private List<LessonEvent> events;
+//    @OneToMany(mappedBy = "teacher")
+//    private List<LessonEventEntity> events;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
-    private Subject subject;
+    private SubjectEntity subject;
 
     @ManyToMany
     @JoinTable(name = "teacher_teams",
             joinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id")
     )
-    private List<Team> teams;
+    private List<TeamEntity> teams;
 }

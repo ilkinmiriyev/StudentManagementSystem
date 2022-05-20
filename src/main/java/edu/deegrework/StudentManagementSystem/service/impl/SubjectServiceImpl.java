@@ -1,8 +1,8 @@
 package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
-import edu.deegrework.StudentManagementSystem.model.Specialization;
-import edu.deegrework.StudentManagementSystem.model.Subject;
+import edu.deegrework.StudentManagementSystem.model.SpecializationEntity;
+import edu.deegrework.StudentManagementSystem.model.SubjectEntity;
 import edu.deegrework.StudentManagementSystem.repository.SpecializationRepository;
 import edu.deegrework.StudentManagementSystem.repository.SubjectRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeamRepository;
@@ -47,11 +47,11 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public SubjectResponse save(SubjectRequest subjectRequest) {
-        List<Specialization> specializations = subjectRequest.getSpecializationsId()
+        List<SpecializationEntity> specializations = subjectRequest.getSpecializationsId()
                 .stream()
                 .map(specializationRepository::getById)
                 .collect(Collectors.toList());
-        Subject subject = requestConverter.apply(subjectRequest);
+        SubjectEntity subject = requestConverter.apply(subjectRequest);
         subject.setSpecializations(specializations);
         return responseConverter.apply(subjectRepository.save(subject));
     }
