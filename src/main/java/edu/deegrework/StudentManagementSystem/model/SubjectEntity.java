@@ -35,5 +35,4 @@ public class SubjectEntity {
 
     @OneToMany(mappedBy = "subject")
     private List<LessonEventEntity> lessonEvent;
-
 }

@@ -1,5 +1,6 @@
 package edu.deegrework.StudentManagementSystem.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import edu.deegrework.StudentManagementSystem.model.AcademicDegree;
 import edu.deegrework.StudentManagementSystem.model.Semester;
 import edu.deegrework.StudentManagementSystem.security.Role;
@@ -20,6 +21,7 @@ public class StudentResponse {
 
     private String lastname;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthdate;
 
     private String email;

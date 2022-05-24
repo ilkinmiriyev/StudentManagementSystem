@@ -25,7 +25,7 @@ public class LessonEventController {
 
         @GetMapping
         @ResponseStatus(HttpStatus.OK)
-        public List<LessonEventResponse> getJournals(){
+        public List<LessonEventResponse> getLessonEvents(){
             return eventService.getLessonEvents();
         }
 

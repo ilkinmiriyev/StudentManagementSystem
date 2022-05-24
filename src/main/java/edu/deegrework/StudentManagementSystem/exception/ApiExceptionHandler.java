@@ -5,7 +5,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
@@ -18,8 +17,7 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(RecordNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ExceptionResponse resourceNotFoundException(RuntimeException runtimeException,
-                                                       WebRequest webRequest) {
+    public ExceptionResponse resourceNotFoundException(RuntimeException runtimeException) {
         return new ExceptionResponse(runtimeException.getMessage());
     }
 
@@ -37,10 +35,16 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public List<ExceptionResponse> handle(ConstraintViolationException e){
+    public List<ExceptionResponse> handleConstraintException(ConstraintViolationException e){
         List<ExceptionResponse> errors = new ArrayList<>();
         e.getConstraintViolations()
                 .forEach(ex-> errors.add(new ExceptionResponse(ex.getMessage())));
         return errors;
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse handleEmailExist(IllegalStateException e){
+        return new ExceptionResponse(e.getMessage());
     }
 }

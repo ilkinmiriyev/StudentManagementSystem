@@ -13,7 +13,7 @@ public class AttendanceItemRequestConverter implements Function<AttendanceItemRe
     public AttendanceItemEntity apply(AttendanceItemRequest request) {
         return AttendanceItemEntity.builder()
                 .id(request.getId())
-                .status(request.getStatus())
+                .grade(request.getGrade())
                 .build();
     }
 }

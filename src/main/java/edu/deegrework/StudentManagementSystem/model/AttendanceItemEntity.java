@@ -29,8 +29,8 @@ public class AttendanceItemEntity {
     @JoinColumn(name = "lessonEvent_id", referencedColumnName = "id")
     private LessonEventEntity lessonEvent;
 
-    @Column(name = "status")
-    private Boolean status;
+    @Column(name = "grade")
+    private Integer grade;
 
     @Column(name = "date", insertable = false, updatable = false)
     @CreationTimestamp

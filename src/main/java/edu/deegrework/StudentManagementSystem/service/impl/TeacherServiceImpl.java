@@ -76,11 +76,11 @@ public class TeacherServiceImpl implements TeacherService {
         teacher.setTeams(teams);
         teacher.getUserDetails().setEnabled(Boolean.TRUE);
         teacher.getUserDetails().setLocked(Boolean.FALSE);
-        /*emailSender.sendMail(
+        emailSender.sendMail(
                 UNIVERSITY_EMAİL,
                 request.getEmail(),
                 REGISTRATION_SUBJECT,
-                "Siz Tələbə idarəetmə tətbiqində qeydiyyatdan keçmisiniz");*/
+                "Siz Tələbə idarəetmə tətbiqində qeydiyyatdan keçmisiniz");
         return responseConverter.apply(teacherRepository.save(teacher));
     }
 

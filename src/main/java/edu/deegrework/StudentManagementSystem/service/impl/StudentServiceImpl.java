@@ -71,11 +71,11 @@ public class StudentServiceImpl implements StudentService {
         student.setDeleted(Boolean.FALSE);
         student.getUserDetails().setEnabled(Boolean.TRUE);
         student.getUserDetails().setLocked(Boolean.FALSE);
-        /*emailSender.sendMail(
+        emailSender.sendMail(
                         UNIVERSITY_EMAİL,
                         studentRequest.getEmail(),
                         REGISTRATION_SUBJECT,
-                        "Siz Tələbə idarəetmə tətbiqində qeydiyyatdan keçmisiniz");*/
+                        "Siz Tələbə idarəetmə tətbiqində qeydiyyatdan keçmisiniz");
         return responseConverter.apply(studentRepository.save(student));
     }
 

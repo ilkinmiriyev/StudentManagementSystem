@@ -2,6 +2,8 @@ package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
 import edu.deegrework.StudentManagementSystem.model.AttendanceItemEntity;
+import edu.deegrework.StudentManagementSystem.model.LessonEventEntity;
+import edu.deegrework.StudentManagementSystem.model.StudentEntity;
 import edu.deegrework.StudentManagementSystem.repository.AttendanceItemRepository;
 import edu.deegrework.StudentManagementSystem.repository.LessonEventRepository;
 import edu.deegrework.StudentManagementSystem.repository.StudentRepository;
@@ -15,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -44,14 +47,35 @@ public class AttendanceItemServiceImpl implements AttendanceItemService {
     }
 
     @Override
+    public List<AttendanceItemResponse> saveAll(List<AttendanceItemRequest> request) {
+        List<AttendanceItemEntity> collect = request
+                .stream()
+                .map(attendanceItemRequest -> {
+                    Optional<LessonEventEntity> lessonEvent = lessonEventRepository
+                            .findById(attendanceItemRequest.getLessonEventId());
+                    Optional<StudentEntity> student = studentRepository
+                            .findById(attendanceItemRequest.getStudentId());
+                    AttendanceItemEntity attendanceItem = requestConverter.apply(attendanceItemRequest);
+                    attendanceItem.setLessonEvent(lessonEvent.get());
+                    attendanceItem.setStudent(student.get());
+                    return attendanceItem;
+                })
+                .collect(Collectors.toList());
+        return attendanceItemRepository.saveAll(collect)
+                .stream()
+                .map(responseConverter)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public AttendanceItemResponse save(AttendanceItemRequest request) {
         AttendanceItemEntity item = requestConverter.apply(request);
-//        StudentEntity student = studentRepository.findById(request.getStudentId())
-//                .orElseThrow(() -> new RecordNotFoundException("Student not found with id: " + request.getStudentId()));
-//        LessonEventEntity lessonEvent = lessonEventRepository.findById(request.getLessonEvent())
-//                .orElseThrow(() -> new RecordNotFoundException("LessonEvent not found with id: " + request.getLessonEvent()));
-//        item.setLessonEvent(lessonEvent);
-//        item.setStudent(student);
+        StudentEntity student = studentRepository.findById(request.getStudentId())
+                .orElseThrow(() -> new RecordNotFoundException("Student not found with id: " + request.getStudentId()));
+        LessonEventEntity lessonEvent = lessonEventRepository.findById(request.getLessonEventId())
+                .orElseThrow(() -> new RecordNotFoundException("LessonEvent not found with id: " + request.getLessonEventId()));
+        item.setLessonEvent(lessonEvent);
+        item.setStudent(student);
         return responseConverter.apply(attendanceItemRepository.save(item));
     }
 

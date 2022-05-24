@@ -10,5 +10,5 @@ import lombok.Setter;
 public class AttendanceItemResponse {
     private Long id;
     private StudentResponse studentResponse;
-    private Boolean status;
+    private Integer grade;
 }
