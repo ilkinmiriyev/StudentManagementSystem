@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Builder
-public class TeacherResponse {
+public class  TeacherResponse {
     private Long id;
     private String firstName;
     private String lastName;

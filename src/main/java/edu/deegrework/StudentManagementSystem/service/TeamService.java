@@ -2,6 +2,7 @@ package edu.deegrework.StudentManagementSystem.service;
 
 import edu.deegrework.StudentManagementSystem.request.TeamRequest;
 import edu.deegrework.StudentManagementSystem.response.TeamResponse;
+import edu.deegrework.StudentManagementSystem.response.TeamSubjectResponse;
 
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface TeamService {
 
     TeamResponse getTeam(Long id);
 
-    List<TeamResponse> getTeamsByTeacherEmail(String teacherEmail);
+    TeamSubjectResponse getTeamsByTeacherEmail(String teacherEmail);
 
     List<TeamResponse> getTeams();
 

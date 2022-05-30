@@ -45,6 +45,17 @@ public class LessonEventServiceImpl implements LessonEventService {
     }
 
     @Override
+    public List<LessonEventResponse> getEventByTeamIdAndSubjectId(Long teamId, Long subjectId) {
+        TeamEntity team = teamRepository.getById(teamId);
+        SubjectEntity subject = subjectRepository.getById(subjectId);
+        return lessonEventRepository.getLessonEventEntitiesByTeamAndSubject(team, subject)
+                .get()
+                .stream()
+                .map(responseConverter)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public LessonEventResponse save(LessonEventRequest request) {
 
         LessonEventEntity event = new LessonEventEntity();

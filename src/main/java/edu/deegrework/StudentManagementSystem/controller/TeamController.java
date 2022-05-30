@@ -2,6 +2,7 @@ package edu.deegrework.StudentManagementSystem.controller;
 
 import edu.deegrework.StudentManagementSystem.request.TeamRequest;
 import edu.deegrework.StudentManagementSystem.response.TeamResponse;
+import edu.deegrework.StudentManagementSystem.response.TeamSubjectResponse;
 import edu.deegrework.StudentManagementSystem.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class TeamController {
 
     @GetMapping("/teacher-email")
     @ResponseStatus(HttpStatus.OK)
-    public List<TeamResponse> getTeamsByTeacherEmail(@RequestParam(name = "email") String email){
+    public TeamSubjectResponse getTeamsByTeacherEmail(@RequestParam(name = "email") String email){
         return teamService.getTeamsByTeacherEmail(email);
     }
 

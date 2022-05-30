@@ -11,6 +11,8 @@ public interface AttendanceItemService {
 
     List<AttendanceItemResponse> getAttendanceItems();
 
+    List<AttendanceItemResponse> getAttendanceItemsByLessonId(Long lessonId);
+
     List<AttendanceItemResponse> saveAll(List<AttendanceItemRequest> request);
 
     AttendanceItemResponse save(AttendanceItemRequest request);

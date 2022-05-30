@@ -46,6 +46,15 @@ public class AttendanceItemServiceImpl implements AttendanceItemService {
                 .collect(Collectors.toList());
     }
 
+    public List<AttendanceItemResponse> getAttendanceItemsByLessonId(Long lessonId) {
+        return attendanceItemRepository
+                .getAttendanceItemEntitiesByLessonEvent_Id(lessonId)
+                .get()
+                .stream()
+                .map(responseConverter)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<AttendanceItemResponse> saveAll(List<AttendanceItemRequest> request) {
         List<AttendanceItemEntity> collect = request

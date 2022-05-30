@@ -2,6 +2,7 @@ package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
 import edu.deegrework.StudentManagementSystem.model.SpecializationEntity;
+import edu.deegrework.StudentManagementSystem.model.SubjectEntity;
 import edu.deegrework.StudentManagementSystem.model.TeacherEntity;
 import edu.deegrework.StudentManagementSystem.model.TeamEntity;
 import edu.deegrework.StudentManagementSystem.repository.CustomUserDetailsRepository;
@@ -11,6 +12,7 @@ import edu.deegrework.StudentManagementSystem.repository.TeamRepository;
 import edu.deegrework.StudentManagementSystem.request.TeamRequest;
 import edu.deegrework.StudentManagementSystem.request.converter.TeamRequestConverter;
 import edu.deegrework.StudentManagementSystem.response.TeamResponse;
+import edu.deegrework.StudentManagementSystem.response.TeamSubjectResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.TeamResponseConverter;
 import edu.deegrework.StudentManagementSystem.security.CustomUserDetails;
 import edu.deegrework.StudentManagementSystem.service.TeamService;
@@ -38,17 +40,24 @@ public class TeamServiceImpl implements TeamService {
     public TeamResponse getTeam(Long id) {
         return teamRepository.findById(id)
                 .map(responseConverter)
-                .orElseThrow(() -> new RecordNotFoundException("Team not found with id:"+id));
+                .orElseThrow(() -> new RecordNotFoundException("Team not found with id:" + id));
     }
 
-    public List<TeamResponse> getTeamsByTeacherEmail(String teacherEmail){
+    public TeamSubjectResponse getTeamsByTeacherEmail(String teacherEmail) {
         Optional<CustomUserDetails> userDetails = userDetailsRepository.findByEmail(teacherEmail);
-            Optional<TeacherEntity> teacher = teacherRepository.findByUserDetails(userDetails.get());
-            List<TeamEntity> teams = teamRepository.findAllByTeachers(teacher.get());
-            return teams
-                    .stream()
-                    .map(responseConverter)
-                    .collect(Collectors.toList());
+        Optional<TeacherEntity> teacher = teacherRepository.findByUserDetails(userDetails.get());
+        SubjectEntity subject = teacher.get().getSubject();
+        List<TeamEntity> teams = teamRepository.findAllByTeachers(teacher.get());
+        List<TeamResponse> collect = teams
+                .stream()
+                .map(responseConverter)
+                .collect(Collectors.toList());
+
+        TeamSubjectResponse response = new TeamSubjectResponse();
+        response.setTeams(collect);
+        response.setSubjectId(subject.getId());
+        response.setSubjectName(subject.getName());
+        return response;
     }
 
     @Override
@@ -64,7 +73,7 @@ public class TeamServiceImpl implements TeamService {
     public TeamResponse save(TeamRequest teamRequest) {
         SpecializationEntity specialization = specializationRepository
                 .findById(teamRequest.getSpecializationId())
-                .orElseThrow(()->new RecordNotFoundException("Specialization not found with id: "+teamRequest.getSpecializationId()));
+                .orElseThrow(() -> new RecordNotFoundException("Specialization not found with id: " + teamRequest.getSpecializationId()));
         TeamEntity team = requestConverter.apply(teamRequest);
         team.setSpecialization(specialization);
         return responseConverter.apply(teamRepository.save(team));
@@ -72,11 +81,11 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamResponse update(Long id, TeamRequest teamRequest) {
-        if (existsById(id)){
+        if (existsById(id)) {
             teamRequest.setId(id);
             return save(teamRequest);
-        }else{
-            throw new RecordNotFoundException("Team not found with id: "+id);
+        } else {
+            throw new RecordNotFoundException("Team not found with id: " + id);
         }
     }
 

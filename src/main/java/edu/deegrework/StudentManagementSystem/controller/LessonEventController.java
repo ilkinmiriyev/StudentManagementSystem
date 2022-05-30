@@ -35,11 +35,13 @@ public class LessonEventController {
             return eventService.save(request);
         }
 
-//        @PostMapping("/new")
-//        @ResponseStatus(HttpStatus.CREATED)
-//        public LessonEvent createLessonEvent(@RequestBody LessonEventRequest request){
-//                return eventService.createLessonEvent(request);
-//        }
+        @GetMapping("/teamIdAndSubjectId")
+        @ResponseStatus(HttpStatus.OK)
+        public List<LessonEventResponse> getLessonEventByTeamIdAndSubjectId(
+                @RequestParam(name = "teamId") Long teamId,
+                @RequestParam(name = "subjectId") Long subjectId){
+                return eventService.getEventByTeamIdAndSubjectId(teamId, subjectId);
+        }
 
         @PutMapping(path = "/{id}")
         @ResponseStatus(HttpStatus.OK)

@@ -31,8 +31,6 @@ public class LoginController {
     private final CustomUserDetailsRepository userRepository;
     private final CustomUserDetailsResponseConverter userDetailsResponseConverter;
 
-
-
     @PostMapping(path = "/login")
     public CustomUserDetailsResponse login(@RequestBody LoginRequest user){
         log.info("ActionLog.Login.start");
@@ -45,7 +43,8 @@ public class LoginController {
     @GetMapping(path = "/successLogin")
     public CustomUserDetailsResponse successLogin() {
         log.info("ActionLog.successLogin start");
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
         String email = userDetails.getUsername();
         CustomUserDetailsResponse userResponse = userDetailsResponseConverter
                 .apply(userRepository.findByEmail(email).get());
@@ -60,16 +59,6 @@ public class LoginController {
             userResponse.setUserId(teacher.getId());
             userResponse.setFullName(teacher.getFirstName()+" "+teacher.getLastname());
         }
-
         return userResponse;
-
-/*
-        StudentResponse studentResponse = responseConverter.apply(student);
-        if (user.getLoggedIn()) {
-            return studentResponse;
-        } else {
-            throw new IllegalArgumentException("Test"); // todo: message
-        }*/
     }
 }
-

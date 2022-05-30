@@ -9,6 +9,8 @@ import lombok.Setter;
 @Builder
 public class AttendanceItemResponse {
     private Long id;
-    private StudentResponse studentResponse;
+    private Long studentId;
+    private String firstName;
+    private String lastName;
     private Integer grade;
 }

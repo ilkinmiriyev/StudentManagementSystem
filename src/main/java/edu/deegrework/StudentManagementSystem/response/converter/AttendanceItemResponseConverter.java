@@ -13,6 +13,9 @@ public class AttendanceItemResponseConverter implements Function<AttendanceItemE
     public AttendanceItemResponse apply(AttendanceItemEntity attendanceItem) {
         return AttendanceItemResponse.builder()
                 .id(attendanceItem.getId())
+                .studentId(attendanceItem.getStudent().getId())
+                .firstName(attendanceItem.getStudent().getFirstName())
+                .lastName(attendanceItem.getStudent().getLastName())
                 .grade(attendanceItem.getGrade())
                 .build();
     }

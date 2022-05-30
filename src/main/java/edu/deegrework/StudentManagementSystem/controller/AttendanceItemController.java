@@ -31,6 +31,13 @@ public class AttendanceItemController {
         return itemService.getAttendanceItem(id);
     }
 
+    @GetMapping(path = "/lessonEventId")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AttendanceItemResponse> getAttendanceItemsByLessonEvent(@RequestParam("lessonEventId")
+                                                                        Long lessonEventId){
+        return itemService.getAttendanceItemsByLessonId(lessonEventId);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public List<AttendanceItemResponse> save(@RequestBody
