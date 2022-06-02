@@ -11,14 +11,9 @@ public class FacultyResponseConverter implements Function<FacultyEntity, Faculty
 
     @Override
     public FacultyResponse apply(FacultyEntity faculty) {
-
         return FacultyResponse.builder()
                 .id(faculty.getId())
                 .name(faculty.getName())
-//                .specializationResponses(faculty.getSpecializations()
-//                        .stream()
-//                        .map(specialization -> new SpecializationResponseConverter().apply(specialization))
-//                        .collect(Collectors.toList()))
                 .build();
     }
 }

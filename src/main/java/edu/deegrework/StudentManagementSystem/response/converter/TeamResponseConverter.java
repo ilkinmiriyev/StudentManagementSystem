@@ -15,14 +15,6 @@ public class TeamResponseConverter implements Function<TeamEntity, TeamResponse>
         return TeamResponse.builder()
                 .id(team.getId())
                 .name(team.getName())
-//                .students(team.getStudents()
-//                        .stream()
-//                        .map(student -> new StudentResponseConverter().apply(student))
-//                        .collect(Collectors.toList()))
-//                .subjectResponses(team.getSubjects()
-//                        .stream()
-//                        .map(subject -> new SubjectResponseConverter().apply(subject))
-//                        .collect(Collectors.toList()))
                 .build();
     }
 }

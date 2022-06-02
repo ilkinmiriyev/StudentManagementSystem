@@ -13,10 +13,6 @@ import java.util.List;
 @Setter
 @Getter
 public class UniversityResponse {
-
     private Long id;
-
     private String name;
-
-//    private List<FacultyResponse> facultyResponses;
 }

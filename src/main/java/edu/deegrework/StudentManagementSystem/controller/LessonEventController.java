@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @CrossOrigin
 @AllArgsConstructor
-@RequestMapping(path = "v1/lessonEvents", produces = "application/json")
+@RequestMapping(path = "v1/lessons", produces = "application/json")
 public class LessonEventController {
 
         private final LessonEventService eventService;
@@ -34,16 +34,6 @@ public class LessonEventController {
         public LessonEventResponse save(@RequestBody LessonEventRequest request){
             return eventService.save(request);
         }
-
-//        @GetMapping("/teamIdAndSubjectId")
-//        @ResponseStatus(HttpStatus.OK)
-//        public List<LessonEventResponse> getLessonEventByTeamIdAndSubjectId(
-//                @RequestParam(name = "teamId") Long teamId,
-//                @RequestParam(name = "subjectId") Long subjectId){
-//
-//
-//                return eventService.getEventByTeamIdAndSubjectId(teamId, subjectId);
-//        }
 
         @PutMapping(path = "/{id}")
         @ResponseStatus(HttpStatus.OK)

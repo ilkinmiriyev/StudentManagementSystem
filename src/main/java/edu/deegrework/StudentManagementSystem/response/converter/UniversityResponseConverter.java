@@ -14,10 +14,6 @@ public class UniversityResponseConverter implements Function<UniversityEntity, U
         return UniversityResponse.builder()
                 .id(university.getId())
                 .name(university.getName())
-//                .facultyResponses(university.getFaculties()
-//                        .stream()`
-//                        .map(faculty -> new FacultyResponseConverter().apply(faculty))
-//                        .collect(Collectors.toList()))
                 .build();
     }
 }

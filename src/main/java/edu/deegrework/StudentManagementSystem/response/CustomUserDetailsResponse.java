@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class CustomUserDetailsResponse {
-//    private Long id;
+    private Long id;
     private String fullName;
     private Long userId;
     private Role role;

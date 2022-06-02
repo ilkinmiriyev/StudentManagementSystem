@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TeamRequest {
-
     private Long id;
     private String name;
     private Long specializationId;

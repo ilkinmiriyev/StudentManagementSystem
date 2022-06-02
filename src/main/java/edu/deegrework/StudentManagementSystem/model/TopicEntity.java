@@ -24,5 +24,4 @@ public class TopicEntity {
     @ManyToOne
     @JoinColumn(name="subject_id", referencedColumnName = "id")
     private SubjectEntity subject;
-
 }

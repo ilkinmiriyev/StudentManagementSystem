@@ -21,9 +21,6 @@ public class TeamEntity {
     @Column(name = "name")
     private String name;
 
-//    @OneToOne
-//    private JournalEntity journal;
-
     @OneToMany(mappedBy = "team")
     List<LessonEventEntity> lessonEvents;
 

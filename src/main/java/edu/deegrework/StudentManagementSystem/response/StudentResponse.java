@@ -14,23 +14,14 @@ import java.util.Date;
 @Setter
 @Getter
 public class StudentResponse {
-
     private Long id;
-
     private String firstname;
-
     private String lastname;
-
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date birthdate;
-
     private String email;
-
     private String phone;
-
     private Semester semester;
-
     private Role role;
-
     private AcademicDegree academicDegree;
 }

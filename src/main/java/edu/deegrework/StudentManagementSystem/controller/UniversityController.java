@@ -3,22 +3,18 @@ package edu.deegrework.StudentManagementSystem.controller;
 import edu.deegrework.StudentManagementSystem.request.UniversityRequest;
 import edu.deegrework.StudentManagementSystem.response.UniversityResponse;
 import edu.deegrework.StudentManagementSystem.service.UniversityService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 @RequestMapping(path = "/v1/universities", produces = "application/json")
 public class UniversityController {
 
     private final UniversityService universityService;
-
-    @Autowired
-    public UniversityController(UniversityService universityService) {
-        this.universityService = universityService;
-    }
 
     @GetMapping("/{id}")
     public UniversityResponse v(@PathVariable Long id) {

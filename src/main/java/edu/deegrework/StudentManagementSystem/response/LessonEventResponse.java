@@ -11,8 +11,5 @@ import java.util.Date;
 @Builder
 public class LessonEventResponse {
     private Long id;
-//    private Long teamId;
-//    private Long subjectId;
     private Date lessonDate;
-//    private List<AttendanceItemResponse> attendanceItems;
 }

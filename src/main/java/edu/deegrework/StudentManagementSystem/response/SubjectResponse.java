@@ -8,10 +8,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class SubjectResponse {
-
     private Long id;
-
     private String name;
-
-//    private List<TopicResponse> topicResponses;
 }

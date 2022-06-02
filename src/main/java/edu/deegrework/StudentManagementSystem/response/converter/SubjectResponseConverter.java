@@ -14,10 +14,6 @@ public class SubjectResponseConverter implements Function<SubjectEntity, Subject
         return SubjectResponse.builder()
                 .id(subject.getId())
                 .name(subject.getName())
-//                .topicResponses(subject.getTopics()
-//                        .stream()
-//                        .map(topic -> new TopicResponseConverter().apply(topic))
-//                        .collect(Collectors.toList()))
                 .build();
     }
 }

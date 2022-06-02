@@ -8,12 +8,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class TeamResponse {
-
     private Long id;
-
     private String name;
-
-/*//    private List<StudentResponse> students;*/
-
-//    private List<SubjectResponse> subjectResponses;
 }

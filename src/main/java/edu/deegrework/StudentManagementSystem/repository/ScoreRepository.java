@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ScoreRepository extends JpaRepository<ScoreEntity, Long> {
-//    Optional<List<AttendanceItemEntity>> getAttendanceItemEntitiesByLessonEvent_Id(Long id);
-//    Optional<List<AttendanceItemEntity>> getAttendanceItemEntitiesByStudent_Id(Long id);
     List<ScoreEntity> getAllByStudentIdAndLesson_SubjectId(Long studentId, Long subjectId);
 }

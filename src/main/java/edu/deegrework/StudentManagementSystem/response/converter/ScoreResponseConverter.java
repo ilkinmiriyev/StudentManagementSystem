@@ -9,7 +9,6 @@ import java.util.function.Function;
 @Component
 public class ScoreResponseConverter implements Function<ScoreEntity, ScoreResponse> {
 
-
     @Override
     public ScoreResponse apply(ScoreEntity score) {
         return ScoreResponse.builder()

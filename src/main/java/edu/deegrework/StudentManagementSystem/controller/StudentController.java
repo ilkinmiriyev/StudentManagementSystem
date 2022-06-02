@@ -1,6 +1,5 @@
 package edu.deegrework.StudentManagementSystem.controller;
 
-import edu.deegrework.StudentManagementSystem.email.EmailSender;
 import edu.deegrework.StudentManagementSystem.request.StudentRequest;
 import edu.deegrework.StudentManagementSystem.response.StudentResponse;
 import edu.deegrework.StudentManagementSystem.service.StudentService;

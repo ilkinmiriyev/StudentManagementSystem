@@ -15,10 +15,6 @@ public class SpecializationResponseConverter implements Function<SpecializationE
         return SpecializationResponse.builder()
                 .id(specialization.getId())
                 .name(specialization.getName())
-//                .teamResponses(specialization.getTeams()
-//                        .stream()
-//                        .map(team -> new TeamResponseConverter().apply(team))
-//                        .collect(Collectors.toList()))
                 .build();
     }
 }

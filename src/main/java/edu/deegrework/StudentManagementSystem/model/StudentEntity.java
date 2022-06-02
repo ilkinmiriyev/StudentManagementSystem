@@ -66,9 +66,6 @@ public class StudentEntity {
     @Column(name = "deleted")
     private Boolean deleted = Boolean.FALSE;
 
-//    @Column(name = "lesson_limit")
-//    private Integer lessonLimit;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

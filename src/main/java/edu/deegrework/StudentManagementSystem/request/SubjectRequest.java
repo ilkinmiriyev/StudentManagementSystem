@@ -11,6 +11,5 @@ public class SubjectRequest {
     private Long id;
     private String name;
     private List<Long> specializationsId;
-
     private Integer creditNumber;
 }

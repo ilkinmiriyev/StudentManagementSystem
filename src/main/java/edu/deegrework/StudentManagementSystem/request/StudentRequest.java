@@ -1,8 +1,8 @@
 package edu.deegrework.StudentManagementSystem.request;
 
-import edu.deegrework.StudentManagementSystem.validation.PhoneValidation;
 import edu.deegrework.StudentManagementSystem.model.AcademicDegree;
 import edu.deegrework.StudentManagementSystem.model.Semester;
+import edu.deegrework.StudentManagementSystem.validation.PhoneValidation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +24,7 @@ public class StudentRequest {
     private String lastname;
 
     @NotNull
+//    @JsonFormat(pattern = "MM-dd-yyyy HH-mm")
     private Date birthdate;
 
     @Email

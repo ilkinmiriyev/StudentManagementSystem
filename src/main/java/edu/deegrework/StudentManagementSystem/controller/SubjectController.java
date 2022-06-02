@@ -2,9 +2,8 @@ package edu.deegrework.StudentManagementSystem.controller;
 
 import edu.deegrework.StudentManagementSystem.request.SubjectRequest;
 import edu.deegrework.StudentManagementSystem.response.SubjectResponse;
-import edu.deegrework.StudentManagementSystem.response.converter.SubjectResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.SubjectService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,18 +11,11 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 @RequestMapping(path = "/v1/subjects", produces = "application/json")
 public class SubjectController {
 
     private final SubjectService subjectService;
-    private final SubjectResponseConverter converter;
-
-    @Autowired
-    public SubjectController(SubjectService subjectService,
-                             SubjectResponseConverter converter) {
-        this.subjectService = subjectService;
-        this.converter = converter;
-    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

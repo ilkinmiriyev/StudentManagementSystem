@@ -9,11 +9,10 @@ import java.util.function.Function;
 @Component
 public class CustomUserDetailsResponseConverter implements Function<CustomUserDetails, CustomUserDetailsResponse> {
 
-
     @Override
     public CustomUserDetailsResponse apply(CustomUserDetails user) {
         return CustomUserDetailsResponse.builder()
-//                .id(user.getId())
+                .id(user.getId())
                 .role(user.getRole())
                 .build();
     }

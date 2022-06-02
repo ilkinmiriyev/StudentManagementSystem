@@ -22,16 +22,15 @@ public class StudentRequestConverter implements Function<StudentRequest, Student
         user.setEmail(studentRequest.getEmail());
         user.setPassword(studentRequest.getPassword());
         user.setRole(Role.STUDENT);
+
         return StudentEntity.builder()
                 .academicDegree(studentRequest.getAcademicDegree())
                 .birthdate(studentRequest.getBirthdate())
                 .id(studentRequest.getId())
                 .semester(studentRequest.getSemester())
-//                .email(studentRequest.getEmail())
                 .firstName(studentRequest.getFirstname())
                 .phone(studentRequest.getPhone())
                 .lastName(studentRequest.getLastname())
-//                .password(studentRequest.getPassword())
 
                 .userDetails(user)
                 .build();

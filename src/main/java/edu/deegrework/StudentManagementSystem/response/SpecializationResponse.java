@@ -13,9 +13,6 @@ import java.util.List;
 @Setter
 @Getter
 public class SpecializationResponse {
-
     private Long id;
-
     private String name;
-
 }

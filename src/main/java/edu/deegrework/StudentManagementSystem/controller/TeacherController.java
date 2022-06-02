@@ -3,7 +3,7 @@ package edu.deegrework.StudentManagementSystem.controller;
 import edu.deegrework.StudentManagementSystem.request.TeacherRequest;
 import edu.deegrework.StudentManagementSystem.response.TeacherResponse;
 import edu.deegrework.StudentManagementSystem.service.TeacherService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(path = "v1/teachers", produces = "application/json")
 public class TeacherController {
 

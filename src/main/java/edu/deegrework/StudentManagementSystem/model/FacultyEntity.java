@@ -33,5 +33,4 @@ public class FacultyEntity {
     @ManyToOne
     @JoinColumn(name = "univsersity_id", referencedColumnName = "id")
     private UniversityEntity university;
-
 }

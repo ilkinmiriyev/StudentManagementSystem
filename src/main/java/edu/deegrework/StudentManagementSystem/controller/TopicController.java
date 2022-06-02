@@ -3,7 +3,7 @@ package edu.deegrework.StudentManagementSystem.controller;
 import edu.deegrework.StudentManagementSystem.request.TopicRequest;
 import edu.deegrework.StudentManagementSystem.response.TopicResponse;
 import edu.deegrework.StudentManagementSystem.service.TopicService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,15 +11,11 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@RequiredArgsConstructor
 @RequestMapping(path = "/v1/topics", produces = "application/json")
 public class TopicController {
 
     private final TopicService topicService;
-
-    @Autowired
-    public TopicController(TopicService topicService) {
-        this.topicService = topicService;
-    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
