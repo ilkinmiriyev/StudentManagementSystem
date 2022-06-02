@@ -80,6 +80,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<StudentResponse> getStudentsByTeamId(Long teamId) {
+        return studentRepository.findAllByTeamId(teamId)
+                .stream()
+                .map(responseConverter)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public StudentResponse update(Long id, StudentRequest studentRequest) {
         log.info("ActionLog.update.start studentId: {}", id);
         if (existsById(id)) {

@@ -61,13 +61,13 @@ public class StudentEntity {
     private Semester semester;
 
     @OneToMany(mappedBy = "student")
-    private List<AttendanceItemEntity> itemList;
+    private List<ScoreEntity> scores;
 
     @Column(name = "deleted")
     private Boolean deleted = Boolean.FALSE;
 
-    @Column(name = "lesson_limit")
-    private Integer lessonLimit;
+//    @Column(name = "lesson_limit")
+//    private Integer lessonLimit;
 
     @Override
     public boolean equals(Object o) {

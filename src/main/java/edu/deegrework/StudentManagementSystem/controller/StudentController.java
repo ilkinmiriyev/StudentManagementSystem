@@ -17,7 +17,6 @@ import java.util.List;
 @RequestMapping(path = "/v1/students", produces = "application/json")
 public class StudentController {
 
-    private final EmailSender emailSender;
     private final StudentService studentService;
 
     @GetMapping("/{id}")
@@ -30,6 +29,12 @@ public class StudentController {
     @ResponseStatus(HttpStatus.OK)
     public List<StudentResponse> getStudents() {
         return studentService.getStudents();
+    }
+
+    @GetMapping("team-id")
+    @ResponseStatus(HttpStatus.OK)
+    public List<StudentResponse> getStudentsByTeamId(@RequestParam(name = "teamId") Long teamId) {
+         return studentService.getStudentsByTeamId(teamId);
     }
 
     @PostMapping

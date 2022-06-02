@@ -1,7 +1,10 @@
 package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
-import edu.deegrework.StudentManagementSystem.model.*;
+import edu.deegrework.StudentManagementSystem.model.LessonEventEntity;
+import edu.deegrework.StudentManagementSystem.model.ScoreEntity;
+import edu.deegrework.StudentManagementSystem.model.SubjectEntity;
+import edu.deegrework.StudentManagementSystem.model.TeamEntity;
 import edu.deegrework.StudentManagementSystem.repository.*;
 import edu.deegrework.StudentManagementSystem.request.LessonEventRequest;
 import edu.deegrework.StudentManagementSystem.request.converter.LessonEventRequestConverter;
@@ -12,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,25 +24,25 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LessonEventServiceImpl implements LessonEventService {
 
-    private final LessonEventRepository lessonEventRepository;
+    private final LessonEventRepository lessonRepository;
     private final LessonEventResponseConverter responseConverter;
     private final LessonEventRequestConverter requestConverter;
     private final TeamRepository teamRepository;
     private final StudentRepository studentRepository;
     private final SubjectRepository subjectRepository;
-    private final TeacherRepository teacherRepository;
+    private final ScoreRepository scoreRepository;
 
 
     @Override
     public LessonEventResponse getLessonEvent(Long id) {
-        return lessonEventRepository.findById(id)
+        return lessonRepository.findById(id)
                 .map(responseConverter)
                 .orElseThrow(() -> new RecordNotFoundException("LessonEvent not found with id: " + id));
     }
 
     @Override
     public List<LessonEventResponse> getLessonEvents() {
-        return lessonEventRepository.findAll()
+        return lessonRepository.findAll()
                 .stream()
                 .map(responseConverter)
                 .collect(Collectors.toList());
@@ -46,50 +50,46 @@ public class LessonEventServiceImpl implements LessonEventService {
 
     @Override
     public List<LessonEventResponse> getEventByTeamIdAndSubjectId(Long teamId, Long subjectId) {
-        TeamEntity team = teamRepository.getById(teamId);
-        SubjectEntity subject = subjectRepository.getById(subjectId);
-        return lessonEventRepository.getLessonEventEntitiesByTeamAndSubject(team, subject)
-                .get()
-                .stream()
-                .map(responseConverter)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public LessonEventResponse save(LessonEventRequest request) {
-
-        LessonEventEntity event = new LessonEventEntity();
-        SubjectEntity subject = subjectRepository.getById(request.getSubjectId());
-        TeamEntity team = teamRepository.getById(request.getTeamId());
-        event.setLessonDate(request.getLessonDate());
-        event.setSubject(subject);
-        event.setTeam(team);
-        return responseConverter.apply(lessonEventRepository.save(event));
+        return null;
     }
 
 //    @Override
-//    public LessonEventResponse save(LessonEventRequest request) {
-//        LessonEventEntity lessonEvent = requestConverter.apply(request);
-//        TeamEntity team = teamRepository.findById(request.getTeamId())
-//                .orElseThrow(() -> new RecordNotFoundException("Team not found with id: " + request.getTeamId()));
-//        SubjectEntity subject = subjectRepository.findById(request.getSubjectId())
-//                .orElseThrow(() -> new RecordNotFoundException("Subject not found with id: " + request.getSubjectId()));
-//        TeacherEntity teacher = teacherRepository.findById(request.getTeacherId())
-//                .orElseThrow(() -> new RecordNotFoundException("Teacher not found with id: " + request.getTeacherId()));
-//
-//        //todo: AttendanceItems frontda yaranmalidir
-//        request.getItemRequests()
+//    public List<LessonEventResponse> getEventByTeamIdAndSubjectId(Long teamId, Long subjectId) {
+//        TeamEntity team = teamRepository.getById(teamId);
+//        SubjectEntity subject = subjectRepository.getById(subjectId);
+//        return lessonRepository.getLessonEventEntitiesByTeamAndSubject(team, subject)
+//                .get()
 //                .stream()
-//                .filter(i -> !i.getStatus())
-//                .map(i -> studentRepository.getById(i.getStudentId()))
-//                .forEach(s -> s.setLessonLimit(s.getLessonLimit() - 1));
-//
-//        lessonEvent.setTeam(team);
-//        lessonEvent.setSubject(subject);
-//        lessonEvent.setTeacher(teacher);
-//        return responseConverter
-//                .apply(lessonEventRepository.save(lessonEvent));
+//                .map(x -> {
+//                    LessonEventResponse eventResponse = responseConverter.apply(x);
+//                    List<AttendanceItemResponse> itemResponses = x.getItemEntities().stream()
+//                            .map(itemResponseConverter)
+//                            .collect(Collectors.toList());
+//                    eventResponse.setAttendanceItems(itemResponses);
+//                    return eventResponse;
+//                })
+//                .collect(Collectors.toList());
 //    }
+
+    @Override
+    public LessonEventResponse save(LessonEventRequest request) {
+        LessonEventEntity lessonEvent = requestConverter.apply(request);
+        SubjectEntity subject = subjectRepository.getById(request.getSubjectId());
+        TeamEntity team = teamRepository.getById(request.getTeamId());
+        lessonEvent.setSubject(subject);
+        lessonEvent.setTeam(team);
+        LessonEventEntity lesson = lessonRepository.save(lessonEvent);
+
+        List<ScoreEntity> scores = new ArrayList<>();
+        studentRepository.findAllByTeamId(request.getTeamId())
+                .forEach(s -> {
+                    scores.add(new ScoreEntity(null, s, lesson, null));
+                });
+        scoreRepository.saveAll(scores);
+        return responseConverter
+                .apply(lesson);
+    }
+
 
     @Override
     public LessonEventResponse update(Long id, LessonEventRequest request) {
@@ -104,7 +104,7 @@ public class LessonEventServiceImpl implements LessonEventService {
     @Override
     public void delete(Long id) {
         if (existsById(id)) {
-            lessonEventRepository.deleteById(id);
+            lessonRepository.deleteById(id);
         } else {
             throw new RecordNotFoundException("LessonEvent not found with id: " + id);
         }
@@ -112,6 +112,6 @@ public class LessonEventServiceImpl implements LessonEventService {
 
     @Override
     public boolean existsById(Long id) {
-        return lessonEventRepository.existsById(id);
+        return lessonRepository.existsById(id);
     }
 }

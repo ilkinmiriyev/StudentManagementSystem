@@ -11,7 +11,5 @@ public class LessonEventRequest {
     private Long id;
     private Long teamId;
     private Long subjectId;
-//    private Long teacherId;
     private Date lessonDate;
-//    private List<AttendanceItemRequest> itemRequests;
 }

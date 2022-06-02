@@ -18,5 +18,4 @@ public class SpecializationResponse {
 
     private String name;
 
-//    private List<TeamResponse> teamResponses;
 }
