@@ -11,8 +11,6 @@ public interface LessonEventService{
 
     List<LessonEventResponse> getLessonEvents();
 
-    List<LessonEventResponse> getEventByTeamIdAndSubjectId(Long teamId, Long subjectId);
-
     LessonEventResponse save(LessonEventRequest request);
 
     LessonEventResponse update(Long id, LessonEventRequest event);

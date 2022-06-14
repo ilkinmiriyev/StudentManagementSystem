@@ -18,7 +18,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Table(name = "user_details")
 @Entity
-public class CustomUserDetails implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,9 +34,6 @@ public class CustomUserDetails implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @OneToOne(mappedBy = "userDetails")
-//    private Student student;
-
     @CreationTimestamp
     @Column(name = "creation_date", updatable = false, nullable = false)
     private Date creationDate;
@@ -49,14 +46,6 @@ public class CustomUserDetails implements UserDetails {
 
     @Column(name = "enabled")
     private Boolean enabled;
-
-//    public CustomUserDetails(User user) {
-//        this.email = user.getEmail();
-//        this.password = user.getPassword();
-//        this.role = user.getRole();
-//        this.locked = user.getLocked();
-//        this.enabled = user.getEnabled();
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

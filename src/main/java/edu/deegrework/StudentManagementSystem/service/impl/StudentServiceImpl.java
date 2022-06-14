@@ -4,7 +4,7 @@ import edu.deegrework.StudentManagementSystem.email.EmailSender;
 import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
 import edu.deegrework.StudentManagementSystem.model.StudentEntity;
 import edu.deegrework.StudentManagementSystem.model.TeamEntity;
-import edu.deegrework.StudentManagementSystem.repository.CustomUserDetailsRepository;
+import edu.deegrework.StudentManagementSystem.repository.UserRepository;
 import edu.deegrework.StudentManagementSystem.repository.StudentRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeamRepository;
 import edu.deegrework.StudentManagementSystem.request.StudentRequest;
@@ -31,7 +31,7 @@ public class StudentServiceImpl implements StudentService {
     private static final String REGISTRATION_SUBJECT = "Registration SMS";
 
     private final StudentRepository studentRepository;
-    private final CustomUserDetailsRepository userDetailsRepository;
+    private final UserRepository userDetailsRepository;
     private final TeamRepository teamRepository;
     private final StudentResponseConverter responseConverter;
     private final StudentRequestConverter requestConverter;
@@ -50,6 +50,14 @@ public class StudentServiceImpl implements StudentService {
         log.info("ActionLog.getStudents.start");
         return studentRepository
                 .findAll()
+                .stream()
+                .map(responseConverter)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<StudentResponse> getStudentsByTeamId(Long teamId) {
+        return studentRepository.findAllByTeamId(teamId)
                 .stream()
                 .map(responseConverter)
                 .collect(Collectors.toList());
@@ -77,14 +85,6 @@ public class StudentServiceImpl implements StudentService {
                         REGISTRATION_SUBJECT,
                         "Siz Tələbə idarəetmə tətbiqində qeydiyyatdan keçmisiniz");
         return responseConverter.apply(studentRepository.save(student));
-    }
-
-    @Override
-    public List<StudentResponse> getStudentsByTeamId(Long teamId) {
-        return studentRepository.findAllByTeamId(teamId)
-                .stream()
-                .map(responseConverter)
-                .collect(Collectors.toList());
     }
 
     @Override

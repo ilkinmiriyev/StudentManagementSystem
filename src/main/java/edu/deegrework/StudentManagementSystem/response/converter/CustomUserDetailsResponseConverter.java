@@ -1,16 +1,16 @@
 package edu.deegrework.StudentManagementSystem.response.converter;
 
 import edu.deegrework.StudentManagementSystem.response.CustomUserDetailsResponse;
-import edu.deegrework.StudentManagementSystem.security.CustomUserDetails;
+import edu.deegrework.StudentManagementSystem.security.User;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
 
 @Component
-public class CustomUserDetailsResponseConverter implements Function<CustomUserDetails, CustomUserDetailsResponse> {
+public class CustomUserDetailsResponseConverter implements Function<User, CustomUserDetailsResponse> {
 
     @Override
-    public CustomUserDetailsResponse apply(CustomUserDetails user) {
+    public CustomUserDetailsResponse apply(User user) {
         return CustomUserDetailsResponse.builder()
                 .id(user.getId())
                 .role(user.getRole())

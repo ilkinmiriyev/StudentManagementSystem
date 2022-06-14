@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin
 @RequestMapping(path = "/v1/teams", produces = "application/json")
+@CrossOrigin
 public class TeamController {
 
     private final TeamService teamService;

@@ -8,14 +8,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SendGridConfig {
-
     @Value("${sendgrid.api.key}")
     String sendGridAPIKey;
-
     @Bean
     public SendGrid sendGrid(){
         return new SendGrid(sendGridAPIKey);
     }
-
-
 }

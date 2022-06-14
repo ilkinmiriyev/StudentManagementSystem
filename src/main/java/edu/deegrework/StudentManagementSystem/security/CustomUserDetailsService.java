@@ -1,6 +1,6 @@
 package edu.deegrework.StudentManagementSystem.security;
 
-import edu.deegrework.StudentManagementSystem.repository.CustomUserDetailsRepository;
+import edu.deegrework.StudentManagementSystem.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private static final String USER_NOT_FOUND_MSG = "user not found with email: %s";
-    private CustomUserDetailsRepository repository;
+    private UserRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

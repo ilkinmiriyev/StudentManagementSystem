@@ -1,6 +1,6 @@
 package edu.deegrework.StudentManagementSystem.model;
 
-import edu.deegrework.StudentManagementSystem.security.CustomUserDetails;
+import edu.deegrework.StudentManagementSystem.security.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +21,7 @@ public class TeacherEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_details_id", referencedColumnName = "id")
-    private CustomUserDetails userDetails;
+    private User userDetails;
 
     @Column(name = "firstname")
     private String firstName;

@@ -5,7 +5,7 @@ import edu.deegrework.StudentManagementSystem.exception.RecordNotFoundException;
 import edu.deegrework.StudentManagementSystem.model.SubjectEntity;
 import edu.deegrework.StudentManagementSystem.model.TeacherEntity;
 import edu.deegrework.StudentManagementSystem.model.TeamEntity;
-import edu.deegrework.StudentManagementSystem.repository.CustomUserDetailsRepository;
+import edu.deegrework.StudentManagementSystem.repository.UserRepository;
 import edu.deegrework.StudentManagementSystem.repository.SubjectRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeacherRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeamRepository;
@@ -35,7 +35,7 @@ public class TeacherServiceImpl implements TeacherService {
     private final TeacherRequestConverter requestConverter;
     private final TeamRepository teamRepository;
     private final SubjectRepository subjectRepository;
-    private final CustomUserDetailsRepository userDetailsRepository;
+    private final UserRepository userDetailsRepository;
     private final EmailSender emailSender;
     private final PasswordEncoder encoder;
 

@@ -24,11 +24,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .httpBasic();
-//                .and()
-//                .authorizeRequests()
-////                .antMatchers("/v*/**").permitAll()
+                .httpBasic()
+                .and()
+                .authorizeRequests()
+
+                .antMatchers("/v*/**").permitAll();
+
 //                .antMatchers(HttpMethod.GET, "/v*/teachers/**")
+//                    .hasAnyAuthority(Role.TEACHER.name(), Role.ADMIN.name())
+//                .antMatchers(HttpMethod.GET, "/v*/teams/**")
 //                    .hasAnyAuthority(Role.TEACHER.name(), Role.ADMIN.name())
 //                .antMatchers(HttpMethod.GET, "/v*/students/**")
 //                    .hasAnyAuthority(Role.STUDENT.name(), Role.TEACHER.name(), Role.ADMIN.name())
@@ -36,7 +40,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    .hasAuthority(Role.ADMIN.name())
 //                .antMatchers("/login", "/logout").permitAll()
 //                .anyRequest().authenticated();      // <-lt
-
     }
 
     @Override

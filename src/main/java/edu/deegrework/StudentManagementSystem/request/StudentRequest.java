@@ -14,34 +14,23 @@ import java.util.Date;
 @Getter
 @Setter
 public class StudentRequest {
-
     private Long id;
-
     @NotEmpty
     private String firstname;
-
     @NotEmpty
     private String lastname;
-
     @NotNull
-//    @JsonFormat(pattern = "MM-dd-yyyy HH-mm")
     private Date birthdate;
-
     @Email
     @NotEmpty
     private String email;
-
     @NotEmpty
     @PhoneValidation
     private String phone;
-
     @NotNull
     private Long teamId;
-
     @NotEmpty
     private String password;
-
     private AcademicDegree academicDegree;
-
     private Semester semester;
 }

@@ -2,7 +2,7 @@ package edu.deegrework.StudentManagementSystem.request.converter;
 
 import edu.deegrework.StudentManagementSystem.model.StudentEntity;
 import edu.deegrework.StudentManagementSystem.request.StudentRequest;
-import edu.deegrework.StudentManagementSystem.security.CustomUserDetails;
+import edu.deegrework.StudentManagementSystem.security.User;
 import edu.deegrework.StudentManagementSystem.security.Role;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ public class StudentRequestConverter implements Function<StudentRequest, Student
             return null;
         }
 
-        CustomUserDetails user = new CustomUserDetails();
+        User user = new User();
         user.setEmail(studentRequest.getEmail());
         user.setPassword(studentRequest.getPassword());
         user.setRole(Role.STUDENT);

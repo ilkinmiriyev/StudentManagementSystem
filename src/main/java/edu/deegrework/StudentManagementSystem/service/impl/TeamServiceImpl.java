@@ -5,7 +5,7 @@ import edu.deegrework.StudentManagementSystem.model.SpecializationEntity;
 import edu.deegrework.StudentManagementSystem.model.SubjectEntity;
 import edu.deegrework.StudentManagementSystem.model.TeacherEntity;
 import edu.deegrework.StudentManagementSystem.model.TeamEntity;
-import edu.deegrework.StudentManagementSystem.repository.CustomUserDetailsRepository;
+import edu.deegrework.StudentManagementSystem.repository.UserRepository;
 import edu.deegrework.StudentManagementSystem.repository.SpecializationRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeacherRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeamRepository;
@@ -14,7 +14,7 @@ import edu.deegrework.StudentManagementSystem.request.converter.TeamRequestConve
 import edu.deegrework.StudentManagementSystem.response.TeamResponse;
 import edu.deegrework.StudentManagementSystem.response.TeamSubjectResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.TeamResponseConverter;
-import edu.deegrework.StudentManagementSystem.security.CustomUserDetails;
+import edu.deegrework.StudentManagementSystem.security.User;
 import edu.deegrework.StudentManagementSystem.service.TeamService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,7 +31,7 @@ public class TeamServiceImpl implements TeamService {
 
     private final TeamRepository teamRepository;
     private final TeacherRepository teacherRepository;
-    private final CustomUserDetailsRepository userDetailsRepository;
+    private final UserRepository userDetailsRepository;
     private final SpecializationRepository specializationRepository;
     private final TeamResponseConverter responseConverter;
     private final TeamRequestConverter requestConverter;
@@ -44,7 +44,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     public TeamSubjectResponse getTeamsByTeacherEmail(String teacherEmail) {
-        Optional<CustomUserDetails> userDetails = userDetailsRepository.findByEmail(teacherEmail);
+        Optional<User> userDetails = userDetailsRepository.findByEmail(teacherEmail);
         Optional<TeacherEntity> teacher = teacherRepository.findByUserDetails(userDetails.get());
         SubjectEntity subject = teacher.get().getSubject();
         List<TeamEntity> teams = teamRepository.findAllByTeachers(teacher.get());

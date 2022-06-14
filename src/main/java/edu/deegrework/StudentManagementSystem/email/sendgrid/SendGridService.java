@@ -19,13 +19,10 @@ import java.io.IOException;
 @Service
 @Slf4j
 public class SendGridService implements EmailSender {
-
     private final SendGridAPI sendGridAPI;
-
     public SendGridService(SendGridAPI sendGridAPI) {
         this.sendGridAPI = sendGridAPI;
     }
-
     @Async
     public void sendMail(String from, String to, String subject, String content) {
         log.info("ActionLog.sendMail.start to: {}", to);

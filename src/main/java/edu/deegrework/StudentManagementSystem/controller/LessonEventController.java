@@ -22,26 +22,22 @@ public class LessonEventController {
         public LessonEventResponse getLessonEvent(@PathVariable Long id){
             return eventService.getLessonEvent(id);
         }
-
         @GetMapping
         @ResponseStatus(HttpStatus.OK)
         public List<LessonEventResponse> getLessonEvents(){
             return eventService.getLessonEvents();
         }
-
         @PostMapping
         @ResponseStatus(HttpStatus.CREATED)
         public LessonEventResponse save(@RequestBody LessonEventRequest request){
             return eventService.save(request);
         }
-
         @PutMapping(path = "/{id}")
         @ResponseStatus(HttpStatus.OK)
         public LessonEventResponse update(@PathVariable Long id,
                                           @RequestBody LessonEventRequest request){
             return eventService.update(id, request);
         }
-
         @DeleteMapping(path = "/{id}")
         @ResponseStatus(HttpStatus.NO_CONTENT)
         public void delete(@PathVariable Long id){

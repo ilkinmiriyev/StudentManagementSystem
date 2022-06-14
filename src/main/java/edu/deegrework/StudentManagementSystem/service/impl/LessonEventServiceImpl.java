@@ -49,36 +49,13 @@ public class LessonEventServiceImpl implements LessonEventService {
     }
 
     @Override
-    public List<LessonEventResponse> getEventByTeamIdAndSubjectId(Long teamId, Long subjectId) {
-        return null;
-    }
-
-//    @Override
-//    public List<LessonEventResponse> getEventByTeamIdAndSubjectId(Long teamId, Long subjectId) {
-//        TeamEntity team = teamRepository.getById(teamId);
-//        SubjectEntity subject = subjectRepository.getById(subjectId);
-//        return lessonRepository.getLessonEventEntitiesByTeamAndSubject(team, subject)
-//                .get()
-//                .stream()
-//                .map(x -> {
-//                    LessonEventResponse eventResponse = responseConverter.apply(x);
-//                    List<AttendanceItemResponse> itemResponses = x.getItemEntities().stream()
-//                            .map(itemResponseConverter)
-//                            .collect(Collectors.toList());
-//                    eventResponse.setAttendanceItems(itemResponses);
-//                    return eventResponse;
-//                })
-//                .collect(Collectors.toList());
-//    }
-
-    @Override
     public LessonEventResponse save(LessonEventRequest request) {
-        LessonEventEntity lessonEvent = requestConverter.apply(request);
+        LessonEventEntity lessson = requestConverter.apply(request);
         SubjectEntity subject = subjectRepository.getById(request.getSubjectId());
         TeamEntity team = teamRepository.getById(request.getTeamId());
-        lessonEvent.setSubject(subject);
-        lessonEvent.setTeam(team);
-        LessonEventEntity lesson = lessonRepository.save(lessonEvent);
+        lessson.setSubject(subject);
+        lessson.setTeam(team);
+        LessonEventEntity lesson = lessonRepository.save(lessson);
 
         List<ScoreEntity> scores = new ArrayList<>();
         studentRepository.findAllByTeamId(request.getTeamId())
@@ -89,7 +66,6 @@ public class LessonEventServiceImpl implements LessonEventService {
         return responseConverter
                 .apply(lesson);
     }
-
 
     @Override
     public LessonEventResponse update(Long id, LessonEventRequest request) {
