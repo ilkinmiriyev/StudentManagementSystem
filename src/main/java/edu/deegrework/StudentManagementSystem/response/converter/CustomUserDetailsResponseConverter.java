@@ -1,7 +1,7 @@
 package edu.deegrework.StudentManagementSystem.response.converter;
 
 import edu.deegrework.StudentManagementSystem.response.CustomUserDetailsResponse;
-import edu.deegrework.StudentManagementSystem.security.User;
+import edu.deegrework.StudentManagementSystem.model.User;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;

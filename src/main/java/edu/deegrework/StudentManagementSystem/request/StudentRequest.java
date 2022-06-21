@@ -1,7 +1,7 @@
 package edu.deegrework.StudentManagementSystem.request;
 
-import edu.deegrework.StudentManagementSystem.model.AcademicDegree;
-import edu.deegrework.StudentManagementSystem.model.Semester;
+import edu.deegrework.StudentManagementSystem.enumaration.AcademicDegree;
+import edu.deegrework.StudentManagementSystem.enumaration.Semester;
 import edu.deegrework.StudentManagementSystem.validation.PhoneValidation;
 import lombok.Getter;
 import lombok.Setter;

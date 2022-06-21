@@ -1,6 +1,5 @@
 package edu.deegrework.StudentManagementSystem.model;
 
-import edu.deegrework.StudentManagementSystem.security.User;
 import lombok.*;
 
 import javax.persistence.*;

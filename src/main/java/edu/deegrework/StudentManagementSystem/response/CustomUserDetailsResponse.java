@@ -1,6 +1,6 @@
 package edu.deegrework.StudentManagementSystem.response;
 
-import edu.deegrework.StudentManagementSystem.security.Role;
+import edu.deegrework.StudentManagementSystem.enumaration.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

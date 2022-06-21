@@ -1,4 +1,4 @@
-package edu.deegrework.StudentManagementSystem.security;
+package edu.deegrework.StudentManagementSystem.service.impl;
 
 import edu.deegrework.StudentManagementSystem.repository.UserRepository;
 import lombok.AllArgsConstructor;

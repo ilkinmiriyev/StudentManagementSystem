@@ -1,0 +1,177 @@
+databaseChangeLog:
+  -  changeSet:
+       id:  20062022
+       author:  ilkin
+       changes:
+#         SOMETHING DATA FOR TEST
+         - insert:
+             tableName: university
+             columns:
+               - column:
+                   name: id
+                   value: 1
+               - column:
+                   name: name
+                   value: Dia
+         - insert:
+             tableName: faculty
+             columns:
+               - column:
+                   name: id
+                   value: 1
+               - column:
+                   name: name
+                   value: İnzibati idarəetmə
+               - column:
+                   name: university_id
+                   value: 1
+         - insert:
+             tableName: specialization
+             columns:
+               - column:
+                   name: id
+                   value: 1
+               - column:
+                   name: name
+                   value: Kompüter elmləri
+               - column:
+                   name: faculty_id
+                   value: 1
+         - insert:
+             tableName: subject
+             columns:
+               - column:
+                   name: id
+                   value: 1
+               - column:
+                   name: name
+                   value: Proqramlaşdırma
+         - insert:
+             tableName: specialization_subject
+             columns:
+               - column:
+                   name: subject_id
+                   value: 1
+               - column:
+                   name: specialization_id
+                   value: 1
+         - insert:
+             tableName: team
+             columns:
+               - column:
+                   name: id
+                   value: 1
+               - column:
+                   name: name
+                   value: K181
+               - column:
+                   name: specialization_id
+                   value: 1
+         - insert:
+             tableName: user_details
+             columns:
+               - column:
+                   name: id
+                   value: 2
+               - column:
+                   name: email
+                   value: kanan@gmail.com
+               - column:
+                   name: password
+                   value: $2a$10$YakTaJCVVLvWo0p2Ta0M/eQ.OLaX6Hr8detoO6YisEJ6IiV6YcueK
+               - column:
+                   name: role
+                   value: TEACHER
+               - column:
+                   name: logged_in
+                   valueBoolean: true
+               - column:
+                   name: locked
+                   valueBoolean: false
+               - column:
+                   name: enabled
+                   valueBoolean: true
+         - insert:
+             tableName: user_details
+             columns:
+               - column:
+                   name: id
+                   value: 3
+               - column:
+                   name: email
+                   value: ilkin@gmail.com
+               - column:
+                   name: password
+                   value: $2a$10$YakTaJCVVLvWo0p2Ta0M/eQ.OLaX6Hr8detoO6YisEJ6IiV6YcueK
+               - column:
+                   name: role
+                   value: STUDENT
+               - column:
+                   name: logged_in
+                   valueBoolean: true
+               - column:
+                   name: locked
+                   valueBoolean: false
+               - column:
+                   name: enabled
+                   valueBoolean: true
+         - insert:
+             tableName: teacher
+             columns:
+               - column:
+                   name: id
+                   value: 1
+               - column:
+                   name: firstname
+                   value: Kənan
+               - column:
+                   name: lastname
+                   value: Fətullayev
+               - column:
+                   name: user_details_id
+                   value: 2
+               - column:
+                   name: subject_id
+                   value: 1
+         - insert:
+             tableName: teacher_teams
+             columns:
+               - column:
+                   name: teacher_id
+                   value: 1
+               - column:
+                   name: team_id
+                   value: 1
+         - insert:
+             tableName: student
+             columns:
+               - column:
+                   name: id
+                   value: 1
+               - column:
+                   name: firstname
+                   value: İlkin
+               - column:
+                   name: lastname
+                   value: Miriyev
+               - column:
+                   name: user_details_id
+                   value: 3
+               - column:
+                   name: team_id
+                   value: 1
+               - column:
+                   name: phone
+                   value: 994505556677
+               - column:
+                   name: birthdate
+                   valueDate: 2001-04-08 15:00:00.0
+               - column:
+                   name: academic_degree
+                   value: BACHELOR
+               - column:
+                   name: semester
+                   value: 7
+               - column:
+                   name: deleted
+                   valueBoolean: false

@@ -1,5 +1,6 @@
-package edu.deegrework.StudentManagementSystem.security;
+package edu.deegrework.StudentManagementSystem.model;
 
+import edu.deegrework.StudentManagementSystem.enumaration.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,7 +40,7 @@ public class User implements UserDetails {
     private Date creationDate;
 
     @Column(name = "logged_in")
-    private Boolean loggedIn = Boolean.FALSE;
+    private Boolean loggedIn;
 
     @Column(name = "locked")
     private Boolean locked;

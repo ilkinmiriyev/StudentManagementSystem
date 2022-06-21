@@ -7,7 +7,7 @@ import edu.deegrework.StudentManagementSystem.repository.StudentRepository;
 import edu.deegrework.StudentManagementSystem.repository.TeacherRepository;
 import edu.deegrework.StudentManagementSystem.response.CustomUserDetailsResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.CustomUserDetailsResponseConverter;
-import edu.deegrework.StudentManagementSystem.security.Role;
+import edu.deegrework.StudentManagementSystem.enumaration.Role;
 import edu.deegrework.StudentManagementSystem.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,0 +1,27 @@
+databaseChangeLog:
+  -  changeSet:
+       id:  20062022
+       author:  ilkin
+       changes:
+         - insert:
+             schemaName: liquibase-db
+             tableName: user_details
+             columns:
+               - column:
+                   name: email
+                   value: admin@gmail.com
+               - column:
+                   name: password
+                   value: $2a$10$YakTaJCVVLvWo0p2Ta0M/eQ.OLaX6Hr8detoO6YisEJ6IiV6YcueK
+               - column:
+                   name: role
+                   value: ADMIN
+               - column:
+                   name: logged_in
+                   valueBoolean: true
+               - column:
+                   name: locked
+                   valueBoolean: false
+               - column:
+                   name: enabled
+                   valueBoolean: true

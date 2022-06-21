@@ -1,4 +1,4 @@
-package edu.deegrework.StudentManagementSystem.model;
+package edu.deegrework.StudentManagementSystem.enumaration;
 
 public enum Semester {
     FIRST(Course.FIRST),

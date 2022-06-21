@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - include:
+      file: /db/changelog/v-0.1/db.table-create-19062022.yaml
+  - include:
+      file: /db/changelog/v-0.1/db.table-insert-data-20062022.yaml
+  - include:
+      file: /db/changelog/v-0.2/db.table-insert-all-data-20062022.yaml
+

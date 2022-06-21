@@ -31,6 +31,6 @@ public class FacultyEntity {
     private Date creationDate;
 
     @ManyToOne
-    @JoinColumn(name = "univsersity_id", referencedColumnName = "id")
+    @JoinColumn(name = "university_id", referencedColumnName = "id")
     private UniversityEntity university;
 }

@@ -14,7 +14,7 @@ import edu.deegrework.StudentManagementSystem.request.converter.TeamRequestConve
 import edu.deegrework.StudentManagementSystem.response.TeamResponse;
 import edu.deegrework.StudentManagementSystem.response.TeamSubjectResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.TeamResponseConverter;
-import edu.deegrework.StudentManagementSystem.security.User;
+import edu.deegrework.StudentManagementSystem.model.User;
 import edu.deegrework.StudentManagementSystem.service.TeamService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

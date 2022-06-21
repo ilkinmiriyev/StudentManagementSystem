@@ -1,0 +1,382 @@
+databaseChangeLog:
+  -  changeSet:
+       id:  19062022
+       author:  ilkin
+       changes:
+         - createTable:
+            tableName:  university
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_university
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(64)
+              - column:
+                  name: creation_date
+                  type: timestamp
+                  defaultValueDate: CURRENT_TIMESTAMP
+#                   defaultValueComputed: current_timestamp
+                  constraints:
+                    nullable: false
+                    updatable: false
+
+
+#                     FACULTY TABLE
+         - createTable:
+            tableName: faculty
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_faculty
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(64)
+              - column:
+                  name: creation_date
+                  type: timestamp
+                  defaultValueDate: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+                    updatable: false
+              - column:
+                  name: university_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_university_faculty
+                    referencedTableName: university
+                    referencedColumnNames: id
+
+#                  SPECIALIZATION TABLE
+         - createTable:
+             tableName: specialization
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     primaryKeyName: pk_specialization
+                     nullable: false
+               - column:
+                   name: name
+                   type: varchar(64)
+               - column:
+                   name: faculty_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_faculty_specialization
+                     referencedTableName: faculty
+                     referencedColumnNames: id
+
+#                     SUBJECT TABLE
+         - createTable:
+             tableName: subject
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     primaryKeyName: pk_subject
+                     nullable: false
+               - column:
+                   name: name
+                   type: varchar(64)
+
+#                      SPECIALIZATION_SUBJECT TABLE
+         - createTable:
+             tableName: specialization_subject
+             columns:
+               - column:
+                   name: subject_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_subject
+                     referencedTableName: subject
+                     referencedColumnNames: id
+               - column:
+                   name: specialization_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_specialization
+                     referencedTableName: specialization
+                     referencedColumnNames: id
+
+#                     TEAM TABLE
+         - createTable:
+             tableName: team
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     primaryKeyName: pk_team
+                     nullable: false
+               - column:
+                   name: name
+                   type: varchar(64)
+               - column:
+                   name: specialization_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_specialization_team
+                     referencedTableName: specialization
+                     referencedColumnNames: id
+
+         #                  USER_DETAILS TABLE
+         - createTable:
+             tableName: user_details
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     primaryKeyName: pk_team
+                     nullable: false
+               - column:
+                   name: email
+                   type: varchar(64)
+               - column:
+                   name: password
+                   type: varchar(64)
+               - column:
+                   name: role
+                   type: varchar(64)
+               - column:
+                   name: creation_date
+                   type: timestamp
+                   defaultValueDate: CURRENT_TIMESTAMP    # <-------
+                   constraints:
+                     nullable: false
+                     updatable: false
+               - column:
+                   name: logged_in
+                   type: boolean
+                   defaultValueBoolean: false
+               - column:
+                   name: locked
+                   type: boolean
+                   defaultValueBoolean: false
+               - column:
+                   name: enabled
+                   type: boolean
+                   defaultValueBoolean: true
+
+#                    TEACHER TABLE
+         - createTable:
+             tableName: teacher
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     primaryKeyName: pk_teacher
+                     nullable: false
+               - column:
+                   name: user_details_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_user_details_teacher
+                     referencedTableName: user_details
+                     referencedColumnNames: id
+               - column:
+                   name: firstname
+                   type: varchar(64)
+               - column:
+                   name: lastname
+                   type: varchar(64)
+               - column:
+                   name: subject_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_subject_teacher
+                     referencedTableName: subject
+                     referencedColumnNames: id
+
+#                     TEACHER_TEAMS TABLE     <------------- Many To Many
+         - createTable:
+             tableName: teacher_teams
+             columns:
+               - column:
+                   name: teacher_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_teacher
+                     referencedTableName: teacher
+                     referencedColumnNames: id
+               - column:
+                   name: team_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_team_teacher
+                     referencedTableName: team
+                     referencedColumnNames: id
+
+#                     STUDENT TABLE
+         - createTable:
+             tableName: student
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     primaryKeyName: pk_student
+                     nullable: false
+               - column:
+                   name: user_details_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_user_details_student
+                     referencedTableName: user_details
+                     referencedColumnNames: id
+               - column:
+                   name: firstname
+                   type: varchar(64)
+               - column:
+                   name: lastname
+                   type: varchar(64)
+               - column:
+                   name: phone
+                   type: varchar(64)
+               - column:
+                   name: birthdate
+                   type: date
+               - column:
+                   name: team_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_team_student
+                     referencedTableName: team
+                     referencedColumnNames: id
+               - column:
+                   name: academic_degree
+                   type: varchar(24)
+               - column:
+                   name: semester
+                   type: int
+               - column:
+                   name: deleted
+                   type: boolean
+                   defaultValueBoolean: false
+
+#                   LESSON_EVENT
+         - createTable:
+             tableName: lesson_event
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     primaryKeyName: pk_lesson_event
+                     nullable: false
+               - column:
+                   name: team_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_team_lesson
+                     referencedTableName: team
+                     referencedColumnNames: id
+               - column:
+                   name: subject_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_subject_lesson
+                     referencedTableName: subject
+                     referencedColumnNames: id
+               - column:
+                   name: lesson_date
+                   type: date
+               - column:
+                   name: created_at
+                   type: timestamp
+                   defaultValueDate: CURRENT_TIMESTAMP    # <-------
+                   constraints:
+                     nullable: false
+                     updatable: false
+               - column:
+                   name: updated_at
+                   type: timestamp
+                   constraints:
+                     nullable: false
+                     updatable: false
+
+#                     SCORE TABLE
+         - createTable:
+             tableName: score
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     primaryKeyName: pk_score
+                     nullable: false
+               - column:
+                   name: student_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_student_score
+                     referencedTableName: student
+                     referencedColumnNames: id
+               - column:
+                   name: lesson_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_lesson_event_score
+                     referencedTableName: lesson_event
+                     referencedColumnNames: id
+               - column:
+                   name: grade
+                   type: varchar(64)
+
+
+#                TOPIC TABLE
+         - createTable:
+             tableName: topic
+             columns:
+               - column:
+                   name: id
+                   type: bigint
+                   autoIncrement: true
+                   constraints:
+                     primaryKey: true
+                     primaryKeyName: pk_topic
+                     nullable: false
+               - column:
+                   name: name
+                   type: varchar(128)
+               - column:
+                   name: subject_id
+                   type: bigint
+                   constraints:
+                     foreignKeyName: fk_subject_topic
+                     referencedTableName: subject
+                     referencedColumnNames: id
+
+
+
+

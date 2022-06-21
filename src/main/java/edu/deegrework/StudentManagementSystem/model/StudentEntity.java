@@ -1,6 +1,7 @@
 package edu.deegrework.StudentManagementSystem.model;
 
-import edu.deegrework.StudentManagementSystem.security.User;
+import edu.deegrework.StudentManagementSystem.enumaration.AcademicDegree;
+import edu.deegrework.StudentManagementSystem.enumaration.Semester;
 import lombok.*;
 import org.hibernate.Hibernate;
 import org.hibernate.annotations.*;
@@ -63,7 +64,7 @@ public class StudentEntity {
     private List<ScoreEntity> scores;
 
     @Column(name = "deleted")
-    private Boolean deleted = Boolean.FALSE;
+    private Boolean deleted;
 
     @Override
     public boolean equals(Object o) {

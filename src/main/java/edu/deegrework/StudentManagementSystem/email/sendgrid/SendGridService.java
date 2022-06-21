@@ -10,19 +10,20 @@ import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import edu.deegrework.StudentManagementSystem.email.EmailSender;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
-@Service
 @Slf4j
+@RequiredArgsConstructor
+@Service
 public class SendGridService implements EmailSender {
+
     private final SendGridAPI sendGridAPI;
-    public SendGridService(SendGridAPI sendGridAPI) {
-        this.sendGridAPI = sendGridAPI;
-    }
+
     @Async
     public void sendMail(String from, String to, String subject, String content) {
         log.info("ActionLog.sendMail.start to: {}", to);

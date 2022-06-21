@@ -1,9 +1,9 @@
 package edu.deegrework.StudentManagementSystem.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import edu.deegrework.StudentManagementSystem.model.AcademicDegree;
-import edu.deegrework.StudentManagementSystem.model.Semester;
-import edu.deegrework.StudentManagementSystem.security.Role;
+import edu.deegrework.StudentManagementSystem.enumaration.AcademicDegree;
+import edu.deegrework.StudentManagementSystem.enumaration.Semester;
+import edu.deegrework.StudentManagementSystem.enumaration.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

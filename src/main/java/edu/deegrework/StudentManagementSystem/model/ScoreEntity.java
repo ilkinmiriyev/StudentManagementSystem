@@ -4,13 +4,13 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Table(name = "score")
 @Entity
 @Setter
 @Getter
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
+@Table(name = "score")
 public class ScoreEntity {
 
     @Id

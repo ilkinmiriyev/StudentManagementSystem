@@ -2,8 +2,8 @@ package edu.deegrework.StudentManagementSystem.request.converter;
 
 import edu.deegrework.StudentManagementSystem.model.StudentEntity;
 import edu.deegrework.StudentManagementSystem.request.StudentRequest;
-import edu.deegrework.StudentManagementSystem.security.User;
-import edu.deegrework.StudentManagementSystem.security.Role;
+import edu.deegrework.StudentManagementSystem.model.User;
+import edu.deegrework.StudentManagementSystem.enumaration.Role;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
