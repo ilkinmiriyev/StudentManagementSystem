@@ -1,0 +1,26 @@
+version: "3"
+services:
+  sms:
+    depends_on:
+      - mysql-server
+    build: .
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+  mysql-server:
+    image: mysql:8.0.29
+    restart: on-failure
+    container_name: mysql-server
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=liquibase-db
+    ports:
+      - "3306:3306"
+
+    networks:
+      - app-network
+
+networks:
+  app-network:

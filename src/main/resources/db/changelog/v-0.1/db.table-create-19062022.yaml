@@ -319,6 +319,7 @@ databaseChangeLog:
                - column:
                    name: updated_at
                    type: timestamp
+                   defaultValueDate: CURRENT_TIMESTAMP    # <-------
                    constraints:
                      nullable: false
                      updatable: false
@@ -351,7 +352,7 @@ databaseChangeLog:
                      referencedColumnNames: id
                - column:
                    name: grade
-                   type: varchar(64)
+                   type: varchar(255)
 
 
 #                TOPIC TABLE
