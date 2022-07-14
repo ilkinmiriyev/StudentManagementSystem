@@ -1,15 +1,14 @@
 spring:
+  profiles:
+    active: test
   application:
     name: Student Management System
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: >-
       jdbc:mysql://localhost:3306/liquibase-db?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8
-#      jdbc:mysql://b8029538839090:830d00b1@eu-cdbr-west-02.cleardb.net/heroku_84ca0740bc6754a?reconnect
-    username: ${DB_CONNECTION_USERNAME}
-#    b8029538839090
-    password: ${DB_CONNECTION_PASSWORD}
-#    830d00b1
+    username: root
+    password: 123456
   jpa:
     hibernate:
       ddl-auto: validate
@@ -33,9 +32,9 @@ spring:
 
 sendgrid:
   api:
-    key: ${SENDGRID_API_KEY}    // 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
+    key: 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
 
-#logging:
-#  file:
-#    path: logs/
-#    name: logs/application.log
+logging:
+  file:
+    path: logs/
+    name: logs/application.log
