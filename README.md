@@ -6,7 +6,7 @@
 
 ## Installation
 
-Use the [docker](https://www.docker.com/get-started/) to up mysql server and applicatio
+Use the [docker](https://www.docker.com/get-started/) to up mysql server and application
 
 
 ## Usage
