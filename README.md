@@ -10,9 +10,17 @@ Use the [docker](https://www.docker.com/get-started/) to up mysql server and app
 
 
 ## Usage
+####1. Step
+``Open terminal``
 
+####2. Step
+```generateJarFile
+./gradlew bootJar
+```
+
+####3. Step
 ```dockerfile
-docker compose up
+docker-compose up
 ```
 
 
