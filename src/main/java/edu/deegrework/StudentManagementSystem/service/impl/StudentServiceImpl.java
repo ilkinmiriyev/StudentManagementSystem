@@ -10,7 +10,9 @@ import edu.deegrework.StudentManagementSystem.repository.TeamRepository;
 import edu.deegrework.StudentManagementSystem.request.StudentRequest;
 import edu.deegrework.StudentManagementSystem.request.converter.StudentRequestConverter;
 import edu.deegrework.StudentManagementSystem.response.StudentResponse;
+import edu.deegrework.StudentManagementSystem.response.TeamResponse;
 import edu.deegrework.StudentManagementSystem.response.converter.StudentResponseConverter;
+import edu.deegrework.StudentManagementSystem.response.converter.TeamResponseConverter;
 import edu.deegrework.StudentManagementSystem.service.StudentService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -33,6 +36,7 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     private final UserRepository userDetailsRepository;
     private final TeamRepository teamRepository;
+    private final TeamResponseConverter teamResponseConverter;
     private final StudentResponseConverter responseConverter;
     private final StudentRequestConverter requestConverter;
     private final PasswordEncoder encoder;
@@ -41,7 +45,12 @@ public class StudentServiceImpl implements StudentService {
     public StudentResponse getStudent(Long id) {
         log.info("ActionLog.getStudent.start studentId: {}", id);
         return studentRepository.findById(id)
-                .map(responseConverter)
+                .map(studentEntity -> {
+                    StudentResponse response = responseConverter
+                            .apply(studentEntity);
+                    response.setTeamName(studentEntity.getTeam().getName());
+                    return response;
+                })
                 .orElseThrow(() -> new RecordNotFoundException("Student not found with id: " + id));
     }
 
@@ -51,7 +60,12 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository
                 .findAll()
                 .stream()
-                .map(responseConverter)
+                .map(studentEntity -> {
+                    StudentResponse response = responseConverter
+                            .apply(studentEntity);
+                            response.setTeamName(studentEntity.getTeam().getName());
+                            return response;
+                })
                 .collect(Collectors.toList());
     }
 
@@ -80,10 +94,10 @@ public class StudentServiceImpl implements StudentService {
         student.getUserDetails().setEnabled(Boolean.TRUE);
         student.getUserDetails().setLocked(Boolean.FALSE);
         emailSender.sendMail(
-                        UNIVERSITY_EMAİL,
-                        studentRequest.getEmail(),
-                        REGISTRATION_SUBJECT,
-                        "Siz Tələbə idarəetmə tətbiqində qeydiyyatdan keçmisiniz");
+                UNIVERSITY_EMAİL,
+                studentRequest.getEmail(),
+                REGISTRATION_SUBJECT,
+                "Siz Tələbə idarəetmə tətbiqində qeydiyyatdan keçmisiniz");
         return responseConverter.apply(studentRepository.save(student));
     }
 
