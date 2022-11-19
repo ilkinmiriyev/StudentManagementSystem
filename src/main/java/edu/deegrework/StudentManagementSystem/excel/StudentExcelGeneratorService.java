@@ -1,6 +1,5 @@
 package edu.deegrework.StudentManagementSystem.excel;
 
-import edu.deegrework.StudentManagementSystem.repository.StudentRepository;
 import edu.deegrework.StudentManagementSystem.response.StudentResponse;
 import edu.deegrework.StudentManagementSystem.service.StudentService;
 import lombok.AllArgsConstructor;
