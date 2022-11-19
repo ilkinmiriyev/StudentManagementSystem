@@ -34,22 +34,26 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
-
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.6.5'
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '2.6.6'
-
 	implementation 'org.liquibase:liquibase-core:4.11.0'
-
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
+	implementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation "mysql:mysql-connector-java:${mysqlVersion}"
-
 	implementation group: 'com.sendgrid', name: 'sendgrid-java', version: '4.9.1'
 
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.0.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
 
 	annotationProcessor 'org.projectlombok:lombok'
+	implementation group: 'org.apache.poi', name: 'poi', version: '4.1.2'
+	implementation("org.apache.poi:poi-ooxml:4.1.2")
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompileOnly('org.junit.jupiter:junit-jupiter:5.9.0')
+	testCompileOnly('org.junit.platform:junit-platform-launcher:1.9.0')
+	testCompileOnly('org.mockito:mockito-junit-jupiter:4.6.1')
+//	testCompile('de.adesso:junit-insights:1.0.0')
 }
 
 tasks.named('test') {

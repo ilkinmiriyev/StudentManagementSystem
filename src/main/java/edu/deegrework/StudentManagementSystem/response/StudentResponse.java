@@ -24,4 +24,5 @@ public class StudentResponse {
     private Semester semester;
     private Role role;
     private AcademicDegree academicDegree;
+    private String teamName;
 }
